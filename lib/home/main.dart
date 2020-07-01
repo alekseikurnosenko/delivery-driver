@@ -1,18 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'earnings.dart';
 
 class HomePage extends StatelessWidget {
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Stack(children: [
-      GoogleMap(
-          mapToolbarEnabled: false,
-          myLocationButtonEnabled: true,
-          zoomControlsEnabled: false,
-          initialCameraPosition: CameraPosition(target: _center, zoom: 11)),
+      MapWidget(),
       Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Container(
             margin: EdgeInsets.only(top: 16),
@@ -41,25 +39,36 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class EarningsPill extends StatelessWidget {
+class MapWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MapWidgetState();
+  }
+}
+
+class _MapWidgetState extends State<MapWidget> {
+  Completer<GoogleMapController> _controller = Completer();
+  LatLng _center = const LatLng(45.521563, -122.677433);
+
+  @override
+  void initState() {
+    super.initState();
+
+    Geolocator().getPositionStream().first.then((value) async {
+      LatLng lastPosition = LatLng(value.latitude, value.longitude);
+      GoogleMapController controller = await _controller.future;
+      controller.moveCamera(CameraUpdate.newLatLngZoom(lastPosition, 11));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: new Border.all(
-              color: Colors.white,
-              width: 2,
-            ),
-            color: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(16))),
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Text("\$10.0",
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .apply(color: Colors.white))));
+    return GoogleMap(
+        mapToolbarEnabled: false,
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
+        myLocationEnabled: true,
+        onMapCreated: (controller) => _controller.complete(controller),
+        initialCameraPosition: CameraPosition(target: _center, zoom: 11));
   }
 }
