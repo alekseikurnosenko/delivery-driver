@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:openapi/api.dart' as API;
 import 'home/main.dart';
 
 void main() {
@@ -10,6 +10,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+      var token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUkNNa0ZHTWpsR1FUZ3lPVU5CUkVFMU9EaEJNRGt3UlRaRVEwRkZPVU0xUkRVelF6aERRZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1kZWxpdmVyeS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWUwZjQxYmIwNDhmODAwZWE3MjlkYjQzIiwiYXVkIjoiaHR0cHM6Ly9kZWxpdmVyeS9hcGkiLCJpYXQiOjE1OTM2OTkwNTcsImV4cCI6MTU5NjI5MTA1NywiYXpwIjoiR1l1OHFydUpoTnpMTTFKZWlQaWNVWFpmSXljNjNlUXYiLCJndHkiOiJwYXNzd29yZCIsInBlcm1pc3Npb25zIjpbXX0.hm_ebaNkqJ9CwBSU-evSg__gqaLfBrsDNGnDYYnHA1M06nRCBuZb4kqOUq_dHQgv-A7jlQ0xiRozbti0YGTc_ZnoMUvQREEKOCA_dPcZIBlVfduxiTxM0z5tVo3lpeVN7sEPSv9EtofdJFaFgu99RBe9P7JHxQ4cqvXuenbaLmf2zrQPwBHNuGoKuG9_ROZLWeJuQBdJmh3WNGQ5B0tuYKbp1-ce26_E4YnIRWib5-TuXXQbK2-G3YvUE8BKu9IS-7WMm9_ISJ4KP6WdAINwTtIpSL3gxPkFPdF1zKG0wUCE3rox7q0hcRSc_h1vEmOyIQAfrebuRGJOL2aVIatiKA";
+      API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
+
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
