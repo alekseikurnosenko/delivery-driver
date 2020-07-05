@@ -1,13 +1,37 @@
-import 'dart:async';
 import 'package:delivery_driver/profile/main.dart';
+import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/api.dart' as API;
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'earnings.dart';
+import 'map.dart';
 
 part 'main.g.dart';
+
+@widget
+Widget profileWidget(BuildContext context, String initials) => GestureDetector(
+    onTap: () => {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ProfilePage()))
+        },
+    child: Stack(children: [
+      Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+          ),
+          child: Center(
+              child: Text(initials, style: Theme.of(context).textTheme.button))),
+      Container(
+        width: 44,
+        height: 44,
+        margin: EdgeInsets.all(2),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle, border: Border.all(color: Colors.black)),
+      )
+    ]));
 
 @widget
 Widget topPanel() => Container(
@@ -25,7 +49,7 @@ Widget topPanel() => Container(
           child: Container(
               margin: EdgeInsets.only(right: 16),
               alignment: Alignment.centerRight,
-              child: ProfileWidget()))
+              child: ProfileWidget("GG")))
     ]));
 
 @widget
@@ -59,76 +83,9 @@ class HomePage extends StatelessWidget {
     return SafeArea(
         child: Stack(children: [
       MapWidget(),
-      Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        TopPanel(),
-        Expanded(child: Container()),
-        BottomPanel()
-      ]),
+      Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [TopPanel(), Expanded(child: Container()), BottomPanel()]),
     ]));
-  }
-}
-
-class ProfileWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()))
-            },
-        child: Stack(children: [
-          Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-              ),
-              child: Center(
-                  child:
-                      Text("GG", style: Theme.of(context).textTheme.button))),
-          Container(
-            width: 44,
-            height: 44,
-            margin: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.black)),
-          )
-        ]));
-  }
-}
-
-class MapWidget extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _MapWidgetState();
-  }
-}
-
-class _MapWidgetState extends State<MapWidget> {
-  Completer<GoogleMapController> _controller = Completer();
-  LatLng _center = const LatLng(45.521563, -122.677433);
-
-  @override
-  void initState() {
-    super.initState();
-
-    Geolocator().getPositionStream().first.then((value) async {
-      LatLng lastPosition = LatLng(value.latitude, value.longitude);
-      GoogleMapController controller = await _controller.future;
-      controller.moveCamera(CameraUpdate.newLatLngZoom(lastPosition, 11));
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GoogleMap(
-        mapToolbarEnabled: false,
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        myLocationEnabled: true,
-        onMapCreated: (controller) => _controller.complete(controller),
-        initialCameraPosition: CameraPosition(target: _center, zoom: 11));
   }
 }
