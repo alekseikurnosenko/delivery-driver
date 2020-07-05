@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:delivery_driver/profile/main.dart';
 import 'package:openapi/api.dart' as API;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -63,24 +64,31 @@ class HomePage extends StatelessWidget {
 class ProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: Center(
-              child: Text("GG", style: Theme.of(context).textTheme.button))),
-      Container(
-        width: 44,
-        height: 44,
-        margin: EdgeInsets.all(2),
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, border: Border.all(color: Colors.black)),
-      )
-    ]);
+    return GestureDetector(
+        onTap: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()))
+            },
+        child: Stack(children: [
+          Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Center(
+                  child:
+                      Text("GG", style: Theme.of(context).textTheme.button))),
+          Container(
+            width: 44,
+            height: 44,
+            margin: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.black)),
+          )
+        ]));
   }
 }
 
