@@ -1,4 +1,5 @@
 import 'package:delivery_driver/profile/main.dart';
+import 'package:delivery_driver/request/main.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/api.dart' as API;
@@ -23,7 +24,8 @@ Widget profileWidget(BuildContext context, String initials) => GestureDetector(
             color: Colors.white,
           ),
           child: Center(
-              child: Text(initials, style: Theme.of(context).textTheme.button))),
+              child:
+                  Text(initials, style: Theme.of(context).textTheme.button))),
       Container(
         width: 44,
         height: 44,
@@ -59,10 +61,8 @@ Widget bottomPanel(BuildContext context) => Column(children: [
         child: FloatingActionButton.extended(
             label: Text("Go online"),
             onPressed: () async {
-              // TODO: get valid courier token by running SIM.
-              API.CouriersApi courierAPI = API.CouriersApi();
-              API.Courier courier = await courierAPI.ownCourier();
-              print(courier.fullName);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => RequestPage()));
             }),
       ),
       Container(
