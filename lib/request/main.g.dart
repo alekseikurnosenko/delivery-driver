@@ -6,9 +6,9 @@ part of 'main.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class BottomSheet extends StatelessWidget {
-  const BottomSheet({Key key}) : super(key: key);
+class _BottomSheet extends StatelessWidget {
+  const _BottomSheet({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => bottomSheet();
+  Widget build(BuildContext _context) => _bottomSheet();
 }

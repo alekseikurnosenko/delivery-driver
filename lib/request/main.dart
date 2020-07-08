@@ -8,18 +8,33 @@ import 'package:openapi/api.dart' as API;
 part 'main.g.dart';
 
 @widget
-Widget bottomSheet() => Container(
-    height: 128,
+Widget _bottomSheet() => Container(
     decoration: BoxDecoration(
-      boxShadow: [BoxShadow(
-        blurRadius: 10,
-        color: Colors.grey
-      )],
+        boxShadow: [BoxShadow(blurRadius: 10, color: Colors.grey)],
         color: Colors.white,
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+    padding: EdgeInsets.all(16),
     alignment: Alignment.center,
-    child: Text("Request info"));
+    child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisAlignment: MainAxisAlignment.start, children: [
+      Text("TBD: Request info"),
+      FlatButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          onPressed: () {},
+          color: Colors.blue,
+          textColor: Colors.white,
+          child: Text("Accept request")),
+      FlatButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          onPressed: () {},
+          textColor: Colors.black,
+          child: Text("Reject request"))
+    ]));
 
 class RequestPage extends StatefulWidget {
   @override
@@ -50,7 +65,7 @@ class _RequestPageState extends State<RequestPage> {
     controller.moveCamera(CameraUpdate.newLatLngBounds(bounds, 64));
 
     // NB: Required for padding to work!
-    setState(() {});
+    // setState(() {});
   }
 
   Future<void> waitForGoogleMap(GoogleMapController c) {
@@ -102,7 +117,7 @@ class _RequestPageState extends State<RequestPage> {
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(zoom: 11, target: _center)),
           Column(
-            children: <Widget>[Expanded(child: Container()), BottomSheet()],
+            children: <Widget>[Expanded(child: Container()), _BottomSheet()],
           )
         ]));
   }
