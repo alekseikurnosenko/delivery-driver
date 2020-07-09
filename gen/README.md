@@ -75,7 +75,6 @@ Class | Method | HTTP request | Description
 *CouriersApi* | [**statistics**](doc//CouriersApi.md#statistics) | **GET** /api/couriers/statistics | 
 *CouriersApi* | [**stopShift**](doc//CouriersApi.md#stopshift) | **POST** /api/couriers/{courierId}/stopShift | 
 *CouriersApi* | [**updateLocation**](doc//CouriersApi.md#updatelocation) | **POST** /api/couriers/{courierId}/location | 
-*IndexApi* | [**user**](doc//IndexApi.md#user) | **GET** /api/whoami | 
 *OrdersApi* | [**order**](doc//OrdersApi.md#order) | **GET** /api/orders/{orderId} | 
 *OrdersApi* | [**orders**](doc//OrdersApi.md#orders) | **GET** /api/orders | 
 *ProfileApi* | [**setAddress**](doc//ProfileApi.md#setaddress) | **POST** /api/profile/address | 
@@ -95,25 +94,36 @@ Class | Method | HTTP request | Description
 
  - [AddItemToBasketInput](doc//AddItemToBasketInput.md)
  - [Address](doc//Address.md)
- - [Authentication](doc//Authentication.md)
  - [BasketDTO](doc//BasketDTO.md)
  - [BasketItemDTO](doc//BasketItemDTO.md)
  - [Courier](doc//Courier.md)
+ - [CourierAdded](doc//CourierAdded.md)
+ - [CourierLocationUpdated](doc//CourierLocationUpdated.md)
+ - [CourierShiftStarted](doc//CourierShiftStarted.md)
+ - [CourierShiftStopped](doc//CourierShiftStopped.md)
  - [CourierStatistics](doc//CourierStatistics.md)
  - [CreateCourierInput](doc//CreateCourierInput.md)
  - [CreateDishInput](doc//CreateDishInput.md)
  - [CreateRestaurantInput](doc//CreateRestaurantInput.md)
  - [DeliveryRequestDTO](doc//DeliveryRequestDTO.md)
+ - [DeliveryRequested](doc//DeliveryRequested.md)
  - [DishDTO](doc//DishDTO.md)
- - [GrantedAuthority](doc//GrantedAuthority.md)
  - [LatLng](doc//LatLng.md)
  - [MoneyView](doc//MoneyView.md)
  - [Order](doc//Order.md)
+ - [OrderAssigned](doc//OrderAssigned.md)
+ - [OrderCanceled](doc//OrderCanceled.md)
+ - [OrderDelivered](doc//OrderDelivered.md)
  - [OrderItemDTO](doc//OrderItemDTO.md)
+ - [OrderPickedUp](doc//OrderPickedUp.md)
+ - [OrderPlaced](doc//OrderPlaced.md)
+ - [OrderPreparationFinished](doc//OrderPreparationFinished.md)
+ - [OrderPreparationStarted](doc//OrderPreparationStarted.md)
  - [OrderStatus](doc//OrderStatus.md)
  - [Profile](doc//Profile.md)
  - [RemoveFromBasketInput](doc//RemoveFromBasketInput.md)
  - [Restaurant](doc//Restaurant.md)
+ - [RestaurantAdded](doc//RestaurantAdded.md)
  - [SetPaymentMethodInput](doc//SetPaymentMethodInput.md)
  - [UpdateLocationInput](doc//UpdateLocationInput.md)
 

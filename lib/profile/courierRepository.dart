@@ -12,5 +12,10 @@ class CourierRepository {
     var courier = await CouriersApi().ownCourier();
     _courierSubject.sink.add(courier);
   }
+
+  void update(Courier courier) {
+    // Kinda dangerous
+    _courierSubject.sink.add(courier);
+  }
   
 }

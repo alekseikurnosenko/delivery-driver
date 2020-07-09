@@ -23,8 +23,10 @@ class TopPanel extends StatelessWidget {
 }
 
 class BottomPanel extends StatelessWidget {
-  const BottomPanel({Key key}) : super(key: key);
+  const BottomPanel(this.bloc, {Key key}) : super(key: key);
+
+  final HomeBloc bloc;
 
   @override
-  Widget build(BuildContext _context) => bottomPanel(_context);
+  Widget build(BuildContext _context) => bottomPanel(_context, bloc);
 }

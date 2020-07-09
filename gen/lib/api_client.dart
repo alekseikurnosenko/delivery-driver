@@ -42,14 +42,20 @@ class ApiClient {
           return AddItemToBasketInput.fromJson(value);
         case 'Address':
           return Address.fromJson(value);
-        case 'Authentication':
-          // return Authentication.fromJson(value);
         case 'BasketDTO':
           return BasketDTO.fromJson(value);
         case 'BasketItemDTO':
           return BasketItemDTO.fromJson(value);
         case 'Courier':
           return Courier.fromJson(value);
+        case 'CourierAdded':
+          return CourierAdded.fromJson(value);
+        case 'CourierLocationUpdated':
+          return CourierLocationUpdated.fromJson(value);
+        case 'CourierShiftStarted':
+          return CourierShiftStarted.fromJson(value);
+        case 'CourierShiftStopped':
+          return CourierShiftStopped.fromJson(value);
         case 'CourierStatistics':
           return CourierStatistics.fromJson(value);
         case 'CreateCourierInput':
@@ -60,18 +66,32 @@ class ApiClient {
           return CreateRestaurantInput.fromJson(value);
         case 'DeliveryRequestDTO':
           return DeliveryRequestDTO.fromJson(value);
+        case 'DeliveryRequested':
+          return DeliveryRequested.fromJson(value);
         case 'DishDTO':
           return DishDTO.fromJson(value);
-        case 'GrantedAuthority':
-          return GrantedAuthority.fromJson(value);
         case 'LatLng':
           return LatLng.fromJson(value);
         case 'MoneyView':
           return MoneyView.fromJson(value);
         case 'Order':
           return Order.fromJson(value);
+        case 'OrderAssigned':
+          return OrderAssigned.fromJson(value);
+        case 'OrderCanceled':
+          return OrderCanceled.fromJson(value);
+        case 'OrderDelivered':
+          return OrderDelivered.fromJson(value);
         case 'OrderItemDTO':
           return OrderItemDTO.fromJson(value);
+        case 'OrderPickedUp':
+          return OrderPickedUp.fromJson(value);
+        case 'OrderPlaced':
+          return OrderPlaced.fromJson(value);
+        case 'OrderPreparationFinished':
+          return OrderPreparationFinished.fromJson(value);
+        case 'OrderPreparationStarted':
+          return OrderPreparationStarted.fromJson(value);
         case 'OrderStatus':
           return new OrderStatusTypeTransformer().decode(value);
         case 'Profile':
@@ -80,6 +100,8 @@ class ApiClient {
           return RemoveFromBasketInput.fromJson(value);
         case 'Restaurant':
           return Restaurant.fromJson(value);
+        case 'RestaurantAdded':
+          return RestaurantAdded.fromJson(value);
         case 'SetPaymentMethodInput':
           return SetPaymentMethodInput.fromJson(value);
         case 'UpdateLocationInput':

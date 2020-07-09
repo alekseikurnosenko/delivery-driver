@@ -1,9 +1,11 @@
+import 'package:delivery_driver/home/homeBloc.dart';
 import 'package:delivery_driver/profile/main.dart';
 import 'package:delivery_driver/request/main.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/api.dart' as API;
 
+import '../iocContainer.dart';
 import 'earnings.dart';
 import 'map.dart';
 
@@ -55,37 +57,58 @@ Widget topPanel() => Container(
     ]));
 
 @widget
-Widget bottomPanel(BuildContext context) => Column(children: [
-      Container(
-        margin: EdgeInsets.only(bottom: 16),
-        child: FloatingActionButton.extended(
-            label: Text("Go online"),
-            onPressed: () async {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => RequestPage()));
-            }),
-      ),
-      Container(
-        height: 56,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-        alignment: Alignment.center,
-        child: Text("You are offline",
-            style: Theme.of(context).textTheme.headline6),
-      )
-    ]);
+Widget bottomPanel(BuildContext context, HomeBloc bloc) => StreamBuilder<bool>(
+    stream: bloc.isOnShift,
+    initialData: false,
+    builder: (context, isOnShift) => Column(children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 16),
+            child: FloatingActionButton.extended(
+                label: Text(isOnShift.data ? "Go offline" : "Go online"),
+                onPressed: () async {
 
-class HomePage extends StatelessWidget {
+                  if (isOnShift.data) {
+                    bloc.stopShift();
+                  } else {
+                    bloc.startShift();
+                  }
+                  // Navigator.of(context).push(
+                  //     MaterialPageRoute(builder: (context) => RequestPage()));
+                }),
+          ),
+          Container(
+            height: 56,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16))),
+            alignment: Alignment.center,
+            child: Text(isOnShift.data ? "You are online" : "You are offline",
+                style: Theme.of(context).textTheme.headline6),
+          )
+        ]));
+
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageState();
+  }
+}
+
+class _HomePageState extends State<HomePage> {
+  HomeBloc bloc = HomeBloc(courierRepository: IocContainer().courierRepository);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Stack(children: [
       MapWidget(),
-      Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [TopPanel(), Expanded(child: Container()), BottomPanel()]),
+      Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        TopPanel(),
+        Expanded(child: Container()),
+        BottomPanel(bloc)
+      ]),
     ]));
   }
 }
