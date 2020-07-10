@@ -9,8 +9,12 @@ class CourierRepository {
   }
 
   void fetch() async {
+    try {
     var courier = await CouriersApi().ownCourier();
     _courierSubject.sink.add(courier);
+    } catch (e) {
+      print("Failed to fetch courier");
+    }
   }
 
   void update(Courier courier) {

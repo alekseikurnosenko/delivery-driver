@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:delivery_driver/home/homeBloc.dart';
 import 'package:delivery_driver/profile/main.dart';
 import 'package:delivery_driver/request/main.dart';
+import 'package:delivery_driver/websocketClient.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/api.dart' as API;
+import 'package:web_socket_channel/io.dart';
 
 import '../iocContainer.dart';
+import '../main.dart';
 import 'earnings.dart';
 import 'map.dart';
 
@@ -66,7 +71,6 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) => StreamBuilder<bool>(
             child: FloatingActionButton.extended(
                 label: Text(isOnShift.data ? "Go offline" : "Go online"),
                 onPressed: () async {
-
                   if (isOnShift.data) {
                     bloc.stopShift();
                   } else {
@@ -98,6 +102,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeBloc bloc = HomeBloc(courierRepository: IocContainer().courierRepository);
+  final WebsocketClient websocketClient = WebsocketClient();
+
+  @override
+  void initState() {
+    super.initState();
+    websocketClient.events.listen((event) {
+      if (event is API.DeliveryRequested) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => RequestPage()));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

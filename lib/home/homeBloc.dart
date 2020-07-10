@@ -1,4 +1,5 @@
 import 'package:delivery_driver/profile/courierRepository.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:openapi/api.dart';
 
 class HomeBloc {
@@ -15,6 +16,15 @@ class HomeBloc {
 
     var updatedCourier = await CouriersApi().startShift(courier.id);
     courierRepository.update(updatedCourier);
+
+    // FIXME
+    var currentPosition = await Geolocator().getLastKnownPosition();
+    var input = UpdateLocationInput();
+    input.latLng = LatLng();
+    input.latLng.latitude = currentPosition.latitude;
+    input.latLng.longitude = currentPosition.longitude;
+
+    await CouriersApi().updateLocation(courier.id, input);
   }
 
   void stopShift() async {
