@@ -1,6 +1,7 @@
 import 'package:built_value/built_value.dart';
 import 'package:delivery_driver/appTextStyle.dart';
 import 'package:delivery_driver/request/map.dart';
+import 'package:delivery_driver/request/requestPageState.dart';
 import 'package:delivery_driver/request/testState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -99,30 +100,43 @@ UseResult<void> useRejectDeliveryRequest(String orderId) {
   return useFetch(() => rejectDeliveryRequest(orderId), [orderId]);
 }
 
-
+class RequestPageBloc {}
 
 @hwidget
 Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
+  var acceptButtonState = useState(ButtonState.normal());
+  var rejectButtonState = useState(ButtonState.normal());
+
   var orderId = "1";
-  var acceptDelivery =
-      useFetch(() => acceptDeliveryRequest(orderId), [orderId]);
-  var rejectDelivery = useRejectDeliveryRequest(orderId);
-  print(acceptDelivery.result);
+  var onAcceptRequest = () async {
+    acceptButtonState.value = ButtonState.loading();
+    rejectButtonState.value = ButtonState.disabled();
 
+    try {
+      await Future.delayed(Duration(milliseconds: 300), () {});
 
-  if (rejectDelivery.result is Data) {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context).pop();
-    });
-  }
+    } catch (e) {
+      acceptButtonState.value = ButtonState.normal();
+      rejectButtonState.value = ButtonState.normal();
+      // Show error
+    }
+  };
 
-  var state = TestState((b) => b
-    ..a = 1
-    ..b = "2");
+   var onRejectRequest = () async {
+    acceptButtonState.value = ButtonState.disabled();
+    rejectButtonState.value = ButtonState.loading();
 
-  var newState = state.rebuild((b) => b
-    ..a = 3);
+    try {
+      await Future.delayed(Duration(milliseconds: 300), () {});
 
+      Navigator.of(context).pop();
+    } catch (e) {
+      acceptButtonState.value = ButtonState.normal();
+      rejectButtonState.value = ButtonState.normal();
+      // Show error
+    }
+  };
 
   return Container(
       decoration: BoxDecoration(
@@ -143,21 +157,26 @@ Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 onPressed: () {
-                  acceptDelivery.execute();
+                  onAcceptRequest();
                 },
                 color: Colors.blue,
                 textColor: Colors.white,
-                child: Text("Accept request")),
+                child: Text(acceptButtonState.value is NormalButtonState
+                    ? "Accept request"
+                    : acceptButtonState.value is LoadingButtonState
+                        ? "Loading"
+                        : "Disabled")),
             FlatButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                onPressed: () {
-                  // TODO: call backend
-                  rejectDelivery.execute();
-                },
+                onPressed: onRejectRequest,
                 textColor: Colors.black,
-                child: Text("Reject request"))
+                 child: Text(rejectButtonState.value is NormalButtonState
+                    ? "Accept request"
+                    : rejectButtonState.value is LoadingButtonState
+                        ? "Loading"
+                        : "Disabled")),
           ]));
 }
 

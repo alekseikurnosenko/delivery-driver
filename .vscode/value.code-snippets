@@ -20,9 +20,9 @@
 		"prefix": "value",
 		"body": [
 			"abstract class $1 implements Built<$1, $1Builder> {",
-				"$1._();",
-				"factory $1([void Function($1Builder) updates]) = _$$$1;",
-			  "}"
+			"	$1._();",
+			"	factory $1([void Function($1Builder) updates]) = _$$1;",
+			"}"
 		]
 	}
 }
