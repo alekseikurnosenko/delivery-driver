@@ -71,6 +71,17 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) => StreamBuilder<bool>(
             child: FloatingActionButton.extended(
                 label: Text(isOnShift.data ? "Go offline" : "Go online"),
                 onPressed: () async {
+                  API.DeliveryRequested request = API.DeliveryRequested();
+                  request.pickup = API.Address();
+                  request.pickup.location = API.LatLng()..latitude=2..longitude=2;
+                  request.pickup.address = "Some street";
+                  request.dropoff = API.Address();
+                  request.dropoff.location = API.LatLng()..latitude=3..longitude=3;
+                  request.dropoff.address = "Some other street";
+Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => RequestPage(request: request)));
+
+                  return;
                   if (isOnShift.data) {
                     bloc.stopShift();
                   } else {
