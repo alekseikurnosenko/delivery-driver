@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:openapi/api.dart' as API;
 
@@ -9,7 +10,8 @@ class Map extends StatefulWidget {
   final API.LatLng dropoff;
   final EdgeInsets padding;
 
-  const Map({Key key, this.pickup, this.dropoff, @required this.padding}) : super(key: key);
+  const Map({Key key, this.pickup, this.dropoff, @required this.padding})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MapState();
@@ -19,8 +21,13 @@ class _MapState extends State<Map> {
   Completer<GoogleMapController> _controller = Completer();
 
   void _onMapCreated(GoogleMapController controller) async {
-    LatLngBounds bounds = boundsFromLatLngList(
-        [widget.pickup.toGoogleLatLng(), widget.dropoff.toGoogleLatLng()]);
+    var ownLocation = await Geolocator().getLastKnownPosition();
+
+    LatLngBounds bounds = boundsFromLatLngList([
+      widget.pickup.toGoogleLatLng(),
+      widget.dropoff.toGoogleLatLng(),
+      ownLocation.toGoogleLatLng()
+    ]);
 
     // NB: Required for initial map padding to set
     setState(() {});
@@ -84,6 +91,12 @@ class _MapState extends State<Map> {
 }
 
 extension LatLngConverter on API.LatLng {
+  LatLng toGoogleLatLng() {
+    return LatLng(this.latitude, this.longitude);
+  }
+}
+
+extension GeoLatLngConverter on Position {
   LatLng toGoogleLatLng() {
     return LatLng(this.latitude, this.longitude);
   }

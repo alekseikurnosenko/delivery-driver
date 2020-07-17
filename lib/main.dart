@@ -1,6 +1,8 @@
+import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/api.dart' as API;
-import 'home/main.dart';
+
+import 'home/homePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
+
+      IocContainer().courierRepository.fetch();
 
     return MaterialApp(
       title: 'Flutter Demo',

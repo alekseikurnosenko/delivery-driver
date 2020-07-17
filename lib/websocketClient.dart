@@ -22,6 +22,9 @@ class WebsocketClient {
         case "com.delivery.demo.delivery.DeliveryRequested": {
           return DeliveryRequested.fromJson(payload);
         }
+        case "com.delivery.demo.order.OrderAssigned": {
+          return OrderAssigned.fromJson(payload);
+        }
         default: {
           print("Unknown event type: $type");
           return null;

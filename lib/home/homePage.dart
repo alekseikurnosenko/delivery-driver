@@ -1,21 +1,19 @@
-import 'dart:convert';
-
 import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/home/homeBloc.dart';
+import 'package:delivery_driver/pickup/pickupPage.dart';
 import 'package:delivery_driver/profile/main.dart';
 import 'package:delivery_driver/request/main.dart';
 import 'package:delivery_driver/websocketClient.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/api.dart' as API;
-import 'package:web_socket_channel/io.dart';
 
 import '../iocContainer.dart';
-import '../main.dart';
 import 'earnings.dart';
 import 'map.dart';
 
-part 'main.g.dart';
+part 'homePage.g.dart';
 
 @widget
 Widget profileWidget(BuildContext context, String initials) => GestureDetector(
@@ -72,17 +70,17 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) => StreamBuilder<bool>(
             child: ActionButton(
                 label: Text(isOnShift.data ? "Go offline" : "Go online"),
                 onPressed: () async {
-                  API.DeliveryRequested request = API.DeliveryRequested();
-                  request.pickup = API.Address();
-                  request.pickup.location = API.LatLng()..latitude=2..longitude=2;
-                  request.pickup.address = "Some street";
-                  request.dropoff = API.Address();
-                  request.dropoff.location = API.LatLng()..latitude=3..longitude=3;
-                  request.dropoff.address = "Some other street";
-Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => RequestPage(request)));
+//                   API.DeliveryRequested request = API.DeliveryRequested();
+//                   request.pickup = API.Address();
+//                   request.pickup.location = API.LatLng()..latitude=2..longitude=2;
+//                   request.pickup.address = "Some street";
+//                   request.dropoff = API.Address();
+//                   request.dropoff.location = API.LatLng()..latitude=3..longitude=3;
+//                   request.dropoff.address = "Some other street";
+// Navigator.of(context)
+//             .push(MaterialPageRoute(builder: (context) => RequestPage(request)));
 
-                  return;
+//                   return;
                   if (isOnShift.data) {
                     bloc.stopShift();
                   } else {
@@ -119,12 +117,29 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    IocContainer().courierRepository.observe().first.then((courier) async {
+      var list = await API.CouriersApi().orders2(courier.id);
+      print(list);
+    });
     websocketClient.events.listen((event) {
       if (event is API.DeliveryRequested) {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => RequestPage(event)));
+      } else if (event is API.OrderAssigned) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => PickupPage(event)));
       }
     });
+    // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    //   var event = API.OrderAssigned();
+    //   event.orderId = "orderId";
+    //   event.restaurantName = "Restaurant";
+    //   event.restaurantAddress = API.Address()..address = "Restaurant address";
+    //   event.restaurantAddress.location = API.LatLng()..latitude = 2.0..longitude = 2.0;
+    //   event.status = API.OrderStatus.preparing_;
+
+    //   Navigator.of(context).push(MaterialPageRoute(builder: (_) => PickupPage(event)));
+    // });
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:delivery_driver/components/actionButton.dart';
+import 'package:delivery_driver/iocContainer.dart';
 import 'package:delivery_driver/request/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -44,7 +45,8 @@ Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
     rejectButtonState.value = ButtonState.disabled();
 
     try {
-      await Future.delayed(Duration(milliseconds: 3000), () {});
+      var courier = await IocContainer().courierRepository.observe().first;
+      CouriersApi().acceptDeliveryRequest(courier.id, request.orderId);
 
       Navigator.of(context).pop();
     } catch (e) {
@@ -59,8 +61,9 @@ Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
     rejectButtonState.value = ButtonState.loading();
 
     try {
-      await Future.delayed(Duration(milliseconds: 3000), () {});
-
+      var courier = await IocContainer().courierRepository.observe().first;
+      CouriersApi().rejectDeliveryRequest(courier.id, request.orderId);
+      
       Navigator.of(context).pop();
     } catch (e) {
       acceptButtonState.value = ButtonState.normal();
