@@ -1,16 +1,10 @@
-import 'package:built_value/built_value.dart';
-import 'package:delivery_driver/appTextStyle.dart';
 import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/request/map.dart';
-import 'package:delivery_driver/request/requestPageState.dart';
-import 'package:delivery_driver/request/testState.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart'
     hide widget;
 import 'package:openapi/api.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'main.g.dart';
 
@@ -24,8 +18,7 @@ Widget _requestInfo(BuildContext context, DeliveryRequested request) =>
               "Pickup at",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text("Restaurant Name"),
-            Text(request.pickup.address, style: AppTextStyle.copy(context))
+            Text(request.pickup.address)
           ]),
           Container(
             height: 8,
@@ -33,78 +26,15 @@ Widget _requestInfo(BuildContext context, DeliveryRequested request) =>
           Column(
             children: <Widget>[
               Text("Deliver to", style: TextStyle(fontWeight: FontWeight.bold)),
-              Text("UserName"),
-              Text(request.dropoff.address, style: AppTextStyle.copy(context))
+              Text(request.dropoff.address)
             ],
           )
         ],
       ),
     );
 
-abstract class Result<T> {
-  factory Result.loading() => Loading<T>();
-  factory Result.error() => Error<T>();
-  factory Result.data(T data) => Data<T>(data);
-}
-
-class Loading<T> implements Result<T> {}
-
-class Error<T> implements Result<T> {}
-
-class Data<T> implements Result<T> {
-  final T data;
-  Data(this.data);
-}
-
-Stream<Result<int>> acceptDeliveryRequest(String orderId) async* {
-  yield Result.loading();
-  try {
-    // var order = await CouriersApi().acceptDeliveryRequest("courierId", orderId);
-    await Future.delayed(Duration(milliseconds: 300), () {});
-    yield Result.data(1);
-  } catch (e) {
-    yield Result.error();
-  }
-}
-
-class UseResult<T> {
-  Function execute;
-  Result<T> result;
-}
-
-UseResult<T> useFetch<T>(Stream<Result<T>> Function() provider,
-    [List<Object> keys = const <dynamic>[]]) {
-  var subject = useMemoized(() => PublishSubject<int>());
-  var memo = useMemoized(() => subject.switchMap((value) => provider()), keys);
-  var data = useStream(memo).data;
-
-  var result = UseResult<T>();
-  result.execute = () => subject.sink.add(0);
-  result.result = data;
-
-  return result;
-}
-
-UseResult<void> useRejectDeliveryRequest(String orderId) {
-  Stream<Result<int>> rejectDeliveryRequest(String orderId) async* {
-    yield Result.loading();
-    try {
-      // var order = await CouriersApi().acceptDeliveryRequest("courierId", orderId);
-      print("rejecting");
-      await Future.delayed(Duration(milliseconds: 300), () {});
-      yield Result.data(1);
-    } catch (e) {
-      yield Result.error();
-    }
-  }
-
-  return useFetch(() => rejectDeliveryRequest(orderId), [orderId]);
-}
-
-class RequestPageBloc {}
-
 @hwidget
-Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
+Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
   var acceptButtonState = useState(ButtonState.normal());
   var rejectButtonState = useState(ButtonState.normal());
 
@@ -139,66 +69,56 @@ Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
     }
   };
 
-  return Container(
-      decoration: BoxDecoration(
-          boxShadow: [BoxShadow(blurRadius: 10, color: Colors.grey)],
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _RequestInfo(request),
-            Container(height: 8),
-            ActionButton(
-                onPressed: () {
-                  onAcceptRequest();
-                },
-                state: acceptButtonState.value,
-                label: Text("Accept request")),
-            ActionButton(
-                onPressed: onRejectRequest,
-                label: Text("Reject request"),
-                style: ButtonStyle.secondary(),
-                state: rejectButtonState.value),
-          ]));
+  return _BottomSheet(request, acceptButtonState.value, rejectButtonState.value,
+      onAcceptRequest, onRejectRequest);
 }
 
-class RequestPage extends StatefulWidget {
-  final DeliveryRequested request;
+@swidget
+Widget _bottomSheet(
+        DeliveryRequested request,
+        ButtonState acceptButtonState,
+        ButtonState rejectButtonState,
+        Function onAcceptRequest,
+        Function onRejectRequest) =>
+    Container(
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 10, color: Colors.grey)],
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+        padding: EdgeInsets.all(16),
+        alignment: Alignment.center,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              _RequestInfo(request),
+              Container(height: 8),
+              ActionButton(
+                  onPressed: onAcceptRequest,
+                  state: acceptButtonState,
+                  label: Text("Accept request")),
+              ActionButton(
+                  onPressed: onRejectRequest,
+                  label: Text("Reject request"),
+                  style: ButtonStyle.secondary(),
+                  state: rejectButtonState),
+            ]));
 
-  RequestPage({Key key, @required this.request}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _RequestPageState();
-  }
-}
-
-class _RequestPageState extends State<RequestPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
-      Map(
-          pickup: widget.request.pickup.location,
-          dropoff: widget.request.dropoff.location,
-          padding: EdgeInsets.only(
-              bottom: 230)), // Need to somehow get widget size here
-      Column(
-        children: <Widget>[
-          Expanded(child: Container()),
-          _BottomSheet(widget.request)
-        ],
-      )
-    ]));
-  }
+@swidget
+Widget requestPage(DeliveryRequested request) {
+  return Scaffold(
+      body: Stack(children: [
+    Map(
+        pickup: request.pickup.location,
+        dropoff: request.dropoff.location,
+        padding: EdgeInsets.only(
+            bottom: 210)), // Need to somehow get widget size here
+    Column(
+      children: <Widget>[
+        Expanded(child: Container()),
+        _BottomSheetContainer(request)
+      ],
+    )
+  ]));
 }

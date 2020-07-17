@@ -80,7 +80,7 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) => StreamBuilder<bool>(
                   request.dropoff.location = API.LatLng()..latitude=3..longitude=3;
                   request.dropoff.address = "Some other street";
 Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => RequestPage(request: request)));
+            .push(MaterialPageRoute(builder: (context) => RequestPage(request)));
 
                   return;
                   if (isOnShift.data) {
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
     websocketClient.events.listen((event) {
       if (event is API.DeliveryRequested) {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => RequestPage()));
+            .push(MaterialPageRoute(builder: (context) => RequestPage(event)));
       }
     });
   }
