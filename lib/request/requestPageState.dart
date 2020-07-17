@@ -1,16 +1,7 @@
 import 'package:built_value/built_value.dart';
+import 'package:delivery_driver/components/actionButton.dart';
 
 part 'requestPageState.g.dart';
-
-abstract class ButtonState {
-  factory ButtonState.normal() => NormalButtonState();
-  factory ButtonState.loading() => LoadingButtonState();
-  factory ButtonState.disabled() => DisabledButtonState();
-  
-}
-class NormalButtonState implements ButtonState {}
-class LoadingButtonState implements ButtonState {}
-class DisabledButtonState implements ButtonState {}
 
 
 abstract class RequestPageState implements Built<RequestPageState, RequestPageStateBuilder> {

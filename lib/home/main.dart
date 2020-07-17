@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/home/homeBloc.dart';
 import 'package:delivery_driver/profile/main.dart';
 import 'package:delivery_driver/request/main.dart';
@@ -68,7 +69,7 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) => StreamBuilder<bool>(
     builder: (context, isOnShift) => Column(children: [
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            child: FloatingActionButton.extended(
+            child: ActionButton(
                 label: Text(isOnShift.data ? "Go offline" : "Go online"),
                 onPressed: () async {
                   API.DeliveryRequested request = API.DeliveryRequested();

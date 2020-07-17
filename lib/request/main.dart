@@ -1,5 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:delivery_driver/appTextStyle.dart';
+import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/request/map.dart';
 import 'package:delivery_driver/request/requestPageState.dart';
 import 'package:delivery_driver/request/testState.dart';
@@ -113,7 +114,7 @@ Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
     rejectButtonState.value = ButtonState.disabled();
 
     try {
-      await Future.delayed(Duration(milliseconds: 300), () {});
+      await Future.delayed(Duration(milliseconds: 3000), () {});
 
       Navigator.of(context).pop();
     } catch (e) {
@@ -123,12 +124,12 @@ Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
     }
   };
 
-   var onRejectRequest = () async {
+  var onRejectRequest = () async {
     acceptButtonState.value = ButtonState.disabled();
     rejectButtonState.value = ButtonState.loading();
 
     try {
-      await Future.delayed(Duration(milliseconds: 300), () {});
+      await Future.delayed(Duration(milliseconds: 3000), () {});
 
       Navigator.of(context).pop();
     } catch (e) {
@@ -152,31 +153,17 @@ Widget _bottomSheet(BuildContext context, DeliveryRequested request) {
           children: [
             _RequestInfo(request),
             Container(height: 8),
-            FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
+            ActionButton(
                 onPressed: () {
                   onAcceptRequest();
                 },
-                color: Colors.blue,
-                textColor: Colors.white,
-                child: Text(acceptButtonState.value is NormalButtonState
-                    ? "Accept request"
-                    : acceptButtonState.value is LoadingButtonState
-                        ? "Loading"
-                        : "Disabled")),
-            FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
+                state: acceptButtonState.value,
+                label: Text("Accept request")),
+            ActionButton(
                 onPressed: onRejectRequest,
-                textColor: Colors.black,
-                 child: Text(rejectButtonState.value is NormalButtonState
-                    ? "Accept request"
-                    : rejectButtonState.value is LoadingButtonState
-                        ? "Loading"
-                        : "Disabled")),
+                label: Text("Reject request"),
+                style: ButtonStyle.secondary(),
+                state: rejectButtonState.value),
           ]));
 }
 
