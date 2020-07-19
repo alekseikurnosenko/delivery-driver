@@ -6,27 +6,25 @@ part of 'homePage.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class ProfileWidget extends StatelessWidget {
-  const ProfileWidget(this.initials, {Key key}) : super(key: key);
-
-  final String initials;
-
-  @override
-  Widget build(BuildContext _context) => profileWidget(_context, initials);
-}
-
-class TopPanel extends StatelessWidget {
+class TopPanel extends HookWidget {
   const TopPanel({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext _context) => topPanel();
 }
 
-class BottomPanel extends StatelessWidget {
+class BottomPanel extends HookWidget {
   const BottomPanel(this.bloc, {Key key}) : super(key: key);
 
   final HomeBloc bloc;
 
   @override
   Widget build(BuildContext _context) => bottomPanel(_context, bloc);
+}
+
+class HomePage extends HookWidget {
+  const HomePage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext _context) => homePage(_context);
 }

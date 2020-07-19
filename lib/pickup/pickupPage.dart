@@ -37,7 +37,7 @@ Widget pickupPage(BuildContext context, OrderAssigned order) {
 
     try {
       var orderPickup =
-          CouriersApi().confirmOrderPickup(order.courierId, order.orderId);
+          await CouriersApi().confirmOrderPickup(order.courierId, order.orderId);
 
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => DropoffPage(order)));

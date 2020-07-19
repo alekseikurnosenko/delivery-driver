@@ -36,7 +36,7 @@ Widget dropoffPage(BuildContext context, OrderAssigned order) {
 
     try {
       var orderPickup =
-          CouriersApi().confirmDropoff(order.courierId, order.orderId);
+          await CouriersApi().confirmDropoff(order.courierId, order.orderId);
 
       Navigator.of(context).pop();
     } catch (e) {

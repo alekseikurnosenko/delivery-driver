@@ -6,7 +6,7 @@ import 'package:openapi/api.dart';
 part 'main.g.dart';
 
 @widget
-Widget profileWidget(Courier courier) => Container(
+Widget _profileWidget(Courier courier) => Container(
         padding: EdgeInsets.all(16),
         height: 128,
         child: Row(
@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   return Text("Loading");
                 }
                 var courier = snapshot.data;
-                return ProfileWidget(courier);
+                return _ProfileWidget(courier);
               })),
     );
   }

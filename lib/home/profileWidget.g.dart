@@ -1,16 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'main.dart';
+part of 'profileWidget.dart';
 
 // **************************************************************************
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class _ProfileWidget extends StatelessWidget {
-  const _ProfileWidget(this.courier, {Key key}) : super(key: key);
+class ProfileWidget extends StatelessWidget {
+  const ProfileWidget(this.courier, {Key key}) : super(key: key);
 
   final Courier courier;
 
   @override
-  Widget build(BuildContext _context) => _profileWidget(courier);
+  Widget build(BuildContext _context) => profileWidget(_context, courier);
 }
