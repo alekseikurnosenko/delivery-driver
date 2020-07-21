@@ -57,12 +57,12 @@ class CouriersApi {
   /// 
   ///
   /// 
-  Future<Order> acceptDeliveryRequest(String courierId, String orderId) async {
+  Future<DeliveryRequestDTO> acceptDeliveryRequest(String courierId, String orderId) async {
     Response response = await acceptDeliveryRequestWithHttpInfo(courierId, orderId);
     if(response.statusCode >= 400) {
       throw ApiException(response.statusCode, _decodeBodyBytes(response));
     } else if(response.body != null) {
-      return apiClient.deserialize(_decodeBodyBytes(response), 'Order') as Order;
+      return apiClient.deserialize(_decodeBodyBytes(response), 'DeliveryRequestDTO') as DeliveryRequestDTO;
     } else {
       return null;
     }
@@ -524,12 +524,12 @@ class CouriersApi {
   /// 
   ///
   /// 
-  Future<Order> rejectDeliveryRequest(String courierId, String orderId) async {
+  Future<DeliveryRequestDTO> rejectDeliveryRequest(String courierId, String orderId) async {
     Response response = await rejectDeliveryRequestWithHttpInfo(courierId, orderId);
     if(response.statusCode >= 400) {
       throw ApiException(response.statusCode, _decodeBodyBytes(response));
     } else if(response.body != null) {
-      return apiClient.deserialize(_decodeBodyBytes(response), 'Order') as Order;
+      return apiClient.deserialize(_decodeBodyBytes(response), 'DeliveryRequestDTO') as DeliveryRequestDTO;
     } else {
       return null;
     }

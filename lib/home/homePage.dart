@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/api.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../iocContainer.dart';
 
@@ -105,6 +106,30 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) {
   ]);
 }
 
+class LifecycleObserver with WidgetsBindingObserver {
+  final void Function(AppLifecycleState) onStateChanged;
+
+  LifecycleObserver(this.onStateChanged);
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("Changing state to $state");
+    onStateChanged(state);
+  }
+}
+
+Stream<AppLifecycleState> lifecyclesStates() {
+  var subject =
+      BehaviorSubject<AppLifecycleState>.seeded(AppLifecycleState.resumed);
+  var observer = LifecycleObserver((state) => {subject.sink.add(state)});
+  return subject.doOnListen(() {
+    WidgetsBinding.instance.addObserver(observer);
+  }).doOnDone(() {
+    WidgetsBinding.instance.removeObserver(observer);
+    subject.close();
+  });
+}
+
 @hwidget
 Widget homePage(BuildContext context) {
   HomeBloc bloc = useMemoized(
@@ -113,18 +138,50 @@ Widget homePage(BuildContext context) {
   useEffect(() {
     final WebsocketClient websocketClient = WebsocketClient();
 
-    websocketClient.events.listen((event) {
+    var subsciption = websocketClient.events.listen((event) {
       if (event is DeliveryRequested) {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => RequestPage(event)));
       } else if (event is OrderAssigned) {
+        // FIXME: if we are already currently picking up an order (aka pooling case)
+        // We don't want to cancel previous pickup state.
+        // Need to build some kind of stack machine?
+        // Should it be client driven?
+        // Or backend?
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => PickupPage(event)));
       }
     });
 
-    return;
+    // So.
+    // When we have a courier.
+    // When we come into foreground.
+    // We might have missed some requests.
+    // So fetch them, show if needed.
+    // Make observer into a steam?
+
+    // TODO: try to simplify this?
+    var courierIds = IocContainer()
+        .courierRepository
+        .observe()
+        .map((event) => event.id)
+        .distinct();
+
+    var requestsSubscription = lifecyclesStates()
+        .where((event) => event == AppLifecycleState.resumed)
+        .flatMap((value) => courierIds)
+        .asyncMap((id) => CouriersApi().pendingDeliveryRequests(id))
+        .listen((requests) => {
+          print(requests)
+          // TODO: trigger state transition?
+        });
+
+    return () {
+      subsciption.cancel();
+      requestsSubscription.cancel();
+    };
   });
+
   return SafeArea(
       child: Stack(children: [
     MapWidget(),
