@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "21159379666",
+    "firebase_url": "https://testab-d80a2.firebaseio.com",
+    "project_id": "testab-d80a2",
+    "storage_bucket": "testab-d80a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21159379666:android:cfa11e8f848415e2c6230b",
+        "android_client_info": {
+          "package_name": "com.example.delivery_driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21159379666-2dq15t84eq1ba6tj0f4tdkrcqdioisn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCswgIx0p_GFAQdTiBUuEFofrRFOhC9csQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21159379666-2dq15t84eq1ba6tj0f4tdkrcqdioisn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21159379666:android:99c64736dd63a28b",
+        "android_client_info": {
+          "package_name": "org.wundercar.testab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21159379666-2dq15t84eq1ba6tj0f4tdkrcqdioisn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCswgIx0p_GFAQdTiBUuEFofrRFOhC9csQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21159379666-2dq15t84eq1ba6tj0f4tdkrcqdioisn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
