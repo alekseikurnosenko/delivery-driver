@@ -1,8 +1,9 @@
 import 'package:delivery_driver/components/actionButton.dart';
+import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:openapi/api.dart';
+import 'package:openapi/model/order_assigned.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../appTextStyle.dart';
@@ -26,6 +27,7 @@ Future<bool> confirmDropoffDialog(BuildContext context) => showDialog(
 
 @hwidget
 Widget dropoffPage(BuildContext context, OrderAssigned order) {
+  var api = IocContainer().api.getCouriersApi();
   var confirmDropoffButtonState = useState(ButtonState.normal());
 
   final onConfirmDropoff = () async {
@@ -36,7 +38,7 @@ Widget dropoffPage(BuildContext context, OrderAssigned order) {
 
     try {
       var orderPickup =
-          await CouriersApi().confirmDropoff(order.courierId, order.orderId);
+          await api.confirmDropoff(order.courierId, order.orderId);
 
       Navigator.of(context).pop();
     } catch (e) {

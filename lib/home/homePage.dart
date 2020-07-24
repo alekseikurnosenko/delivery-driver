@@ -9,7 +9,9 @@ import 'package:delivery_driver/websocketClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:openapi/api.dart';
+import 'package:openapi/model/delivery_requested.dart';
+import 'package:openapi/model/order_assigned.dart';
+import 'package:openapi/model/order_status.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../iocContainer.dart';
@@ -17,29 +19,24 @@ import '../iocContainer.dart';
 part 'homePage.g.dart';
 
 DeliveryRequested buildMockDeliveryRequested() {
-  DeliveryRequested request = DeliveryRequested();
-  request.pickup = Address();
-  request.pickup.location = LatLng()
-    ..latitude = 2
-    ..longitude = 2;
-  request.pickup.address = "Some street";
-  request.dropoff = Address();
-  request.dropoff.location = LatLng()
-    ..latitude = 3
-    ..longitude = 3;
-  request.dropoff.address = "Some other street";
+  DeliveryRequested request = DeliveryRequested((b) => b
+    ..pickup.address = "Some street"
+    ..pickup.location.latitude = 2
+    ..pickup.location.longitude = 2
+    ..dropoff.address = "Some other street"
+    ..dropoff.location.longitude = 2
+    ..dropoff.location.latitude = 2);
   return request;
 }
 
 OrderAssigned buildMockOrderAssigned() {
-  var event = OrderAssigned();
-  event.orderId = "orderId";
-  event.restaurantName = "Restaurant";
-  event.restaurantAddress = Address()..address = "Restaurant address";
-  event.restaurantAddress.location = LatLng()
-    ..latitude = 2.0
-    ..longitude = 2.0;
-  event.status = OrderStatus.preparing_;
+  var event = OrderAssigned((b) => b
+    ..orderId = "orderId"
+    ..restaurantName = "Restaurant"
+    ..restaurantAddress.address = "Restaurant address"
+    ..restaurantAddress.location.latitude = 2
+    ..restaurantAddress.location.latitude = 2
+    ..status = OrderStatus.preparing);
   return event;
 }
 
@@ -132,6 +129,7 @@ Stream<AppLifecycleState> lifecyclesStates() {
 
 @hwidget
 Widget homePage(BuildContext context) {
+  var api = IocContainer().api.getCouriersApi();
   HomeBloc bloc = useMemoized(
       () => HomeBloc(courierRepository: IocContainer().courierRepository));
 
@@ -170,11 +168,11 @@ Widget homePage(BuildContext context) {
     var requestsSubscription = lifecyclesStates()
         .where((event) => event == AppLifecycleState.resumed)
         .flatMap((value) => courierIds)
-        .asyncMap((id) => CouriersApi().pendingDeliveryRequests(id))
+        .asyncMap((id) => api.pendingDeliveryRequests(id))
         .listen((requests) => {
-          print(requests)
-          // TODO: trigger state transition?
-        });
+              print(requests)
+              // TODO: trigger state transition?
+            });
 
     return () {
       subsciption.cancel();

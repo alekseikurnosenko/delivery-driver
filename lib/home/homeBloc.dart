@@ -1,10 +1,13 @@
+import 'package:delivery_driver/iocContainer.dart';
 import 'package:delivery_driver/profile/courierRepository.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:openapi/api.dart';
+import 'package:openapi/api/couriers_api.dart';
+import 'package:openapi/model/update_location_input.dart';
 
 class HomeBloc {
   HomeBloc({this.courierRepository});
 
+  CouriersApi api = IocContainer().api.getCouriersApi();
   CourierRepository courierRepository;
 
   Stream<bool> get isOnShift {
@@ -14,23 +17,23 @@ class HomeBloc {
   void startShift() async {
     var courier = await courierRepository.observe().first;
 
-    var updatedCourier = await CouriersApi().startShift(courier.id);
-    courierRepository.update(updatedCourier);
+    var updatedCourier = await api.startShift(courier.id);
+    courierRepository.update(updatedCourier.data);
 
-    // FIXME
+    // FIXME?
     var currentPosition = await Geolocator().getLastKnownPosition();
-    var input = UpdateLocationInput();
-    input.latLng = LatLng();
-    input.latLng.latitude = currentPosition.latitude;
-    input.latLng.longitude = currentPosition.longitude;
-
-    await CouriersApi().updateLocation(courier.id, input);
+    var input = UpdateLocationInput((b) => b.latLng
+      ..latitude = currentPosition.latitude
+      ..longitude = currentPosition.longitude
+    );
+    
+    await api.updateLocation(courier.id, input);
   }
 
   void stopShift() async {
     var courier = await courierRepository.observe().first;
 
-    var updatedCourier = await CouriersApi().stopShift(courier.id);
-    courierRepository.update(updatedCourier);
+    var updatedCourier = await api.stopShift(courier.id);
+    courierRepository.update(updatedCourier.data);
   }
 }

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:openapi/api.dart';
+import 'package:openapi/model/delivery_requested.dart';
+import 'package:openapi/model/order_assigned.dart';
+import 'package:openapi/serializers.dart';
 import 'package:web_socket_channel/io.dart';
 
 import 'main.dart';
@@ -20,10 +22,10 @@ class WebsocketClient {
       var payload = jsonDecode(message['payload']);
       switch (type) {
         case "com.delivery.demo.delivery.DeliveryRequested": {
-          return DeliveryRequested.fromJson(payload);
+          return serializers.deserializeWith(DeliveryRequested.serializer, payload);
         }
         case "com.delivery.demo.order.OrderAssigned": {
-          return OrderAssigned.fromJson(payload);
+          return serializers.deserializeWith(OrderAssigned.serializer, payload);
         }
         default: {
           print("Unknown event type: $type");

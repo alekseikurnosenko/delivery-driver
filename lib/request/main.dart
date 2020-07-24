@@ -6,6 +6,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart'
     hide widget;
 import 'package:openapi/api.dart';
+import 'package:openapi/api/couriers_api.dart';
+import 'package:openapi/model/delivery_requested.dart';
 
 part 'main.g.dart';
 
@@ -46,7 +48,7 @@ Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
 
     try {
       var courier = await IocContainer().courierRepository.observe().first;
-      CouriersApi().acceptDeliveryRequest(courier.id, request.orderId);
+      IocContainer().api.getCouriersApi().acceptDeliveryRequest(courier.id, request.orderId);
 
       Navigator.of(context).pop();
     } catch (e) {
@@ -62,7 +64,7 @@ Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
 
     try {
       var courier = await IocContainer().courierRepository.observe().first;
-      CouriersApi().rejectDeliveryRequest(courier.id, request.orderId);
+      IocContainer().api.getCouriersApi().rejectDeliveryRequest(courier.id, request.orderId);
       
       Navigator.of(context).pop();
     } catch (e) {

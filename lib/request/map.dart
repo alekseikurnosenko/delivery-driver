@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:openapi/api.dart' as API;
+import 'package:openapi/model/lat_lng.dart' as API;
 
 class Map extends StatefulWidget {
   final API.LatLng pickup;

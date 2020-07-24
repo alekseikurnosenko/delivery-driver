@@ -2,7 +2,7 @@ import 'package:delivery_driver/profile/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:openapi/api.dart';
+import 'package:openapi/model/courier.dart';
 
 part 'profileWidget.g.dart';
 

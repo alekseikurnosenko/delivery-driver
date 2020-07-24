@@ -1,7 +1,7 @@
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:openapi/api.dart';
+import 'package:openapi/model/courier.dart';
 
 part 'main.g.dart';
 

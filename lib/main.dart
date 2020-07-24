@@ -1,7 +1,6 @@
 import 'package:delivery_driver/iocContainer.dart';
-import 'package:flutter/material.dart';
-import 'package:openapi/api.dart' as API;
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 
 import 'home/homePage.dart';
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
+    // API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
 
     IocContainer().courierRepository.fetch();
 
