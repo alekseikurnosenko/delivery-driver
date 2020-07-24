@@ -1,6 +1,7 @@
 import 'package:delivery_driver/main.dart';
 import 'package:delivery_driver/profile/courierRepository.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:openapi/api.dart';
 
 class IocContainer {
@@ -14,8 +15,9 @@ class IocContainer {
   IocContainer._internal() {
     api = Openapi(interceptors: [
       _HeaderInterceptor(),
+      _FirebaseTokenInterceptor(),
       LogInterceptor(
-          requestHeader: false, responseHeader: false, responseBody: true)
+          requestHeader: true, responseHeader: false, responseBody: true)
     ]);
     courierRepository = CourierRepository(api.getCouriersApi());
   }
@@ -25,6 +27,27 @@ class _HeaderInterceptor extends Interceptor {
   @override
   Future onRequest(RequestOptions options) {
     options.headers.putIfAbsent("Authorization", () => "Bearer ${MyApp.token}");
+    return super.onRequest(options);
+  }
+}
+
+class _FirebaseTokenInterceptor extends Interceptor {
+  String token;
+
+  _FirebaseTokenInterceptor() {
+    FirebaseMessaging().onTokenRefresh.listen((event) {
+      token = event;
+    });
+
+    FirebaseMessaging().getToken().then((value) => {token = value});
+  }
+
+  @override
+  Future onRequest(RequestOptions options) {
+    if (token != null) {
+      options.headers.putIfAbsent("X-FirebaseToken", () => token);
+    }
+
     return super.onRequest(options);
   }
 }
