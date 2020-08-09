@@ -5,6 +5,7 @@ import 'package:delivery_driver/home/map.dart';
 import 'package:delivery_driver/home/profileWidget.dart';
 import 'package:delivery_driver/pickup/pickupPage.dart';
 import 'package:delivery_driver/request/main.dart';
+import 'package:delivery_driver/util/lifecycleObserver.dart';
 import 'package:delivery_driver/websocketClient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -103,30 +104,6 @@ Widget bottomPanel(BuildContext context, HomeBloc bloc) {
   ]);
 }
 
-class LifecycleObserver with WidgetsBindingObserver {
-  final void Function(AppLifecycleState) onStateChanged;
-
-  LifecycleObserver(this.onStateChanged);
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("Changing state to $state");
-    onStateChanged(state);
-  }
-}
-
-Stream<AppLifecycleState> lifecyclesStates() {
-  var subject =
-      BehaviorSubject<AppLifecycleState>.seeded(AppLifecycleState.resumed);
-  var observer = LifecycleObserver((state) => {subject.sink.add(state)});
-  return subject.doOnListen(() {
-    WidgetsBinding.instance.addObserver(observer);
-  }).doOnDone(() {
-    WidgetsBinding.instance.removeObserver(observer);
-    subject.close();
-  });
-}
-
 @hwidget
 Widget homePage(BuildContext context) {
   var api = IocContainer().api.getCouriersApi();
@@ -138,8 +115,11 @@ Widget homePage(BuildContext context) {
 
     var subsciption = websocketClient.events.listen((event) {
       if (event is DeliveryRequested) {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => RequestPage(event)));
+        if (ModalRoute.of(context)?.settings?.name != "/request") {
+          Navigator.of(context).pushNamed("/request",
+              arguments: RequestPageArguments(
+                  event.orderId, event.pickup, event.dropoff));
+        }
       } else if (event is OrderAssigned) {
         // FIXME: if we are already currently picking up an order (aka pooling case)
         // We don't want to cancel previous pickup state.
@@ -169,11 +149,21 @@ Widget homePage(BuildContext context) {
         .where((event) => event == AppLifecycleState.resumed)
         .flatMap((value) => courierIds)
         .asyncMap((id) => api.pendingDeliveryRequests(id))
-        .listen((requests) => {
-              print(requests)
-              // TODO: trigger state transition?
-            });
+        .listen((response) {
+      var requests = response.data;
+      if (requests.length == 0) {
+        return;
+      }
+      var request = requests.first;
 
+      // Don't open same screen twice
+      // Still better do a dedup though
+      if (ModalRoute.of(context)?.settings?.name != "/request") {
+        Navigator.of(context).pushNamed("/request",
+            arguments: RequestPageArguments(
+                request.orderId, request.pickup, request.dropoff));
+      }
+    });
     return () {
       subsciption.cancel();
       requestsSubscription.cancel();

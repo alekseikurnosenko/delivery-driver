@@ -7,50 +7,20 @@ part of 'main.dart';
 // **************************************************************************
 
 class _RequestInfo extends StatelessWidget {
-  const _RequestInfo(this.request, {Key key}) : super(key: key);
+  const _RequestInfo(this.pickup, this.dropoff, {Key key}) : super(key: key);
 
-  final DeliveryRequested request;
+  final Address pickup;
 
-  @override
-  Widget build(BuildContext _context) => _requestInfo(_context, request);
-}
-
-class _BottomSheetContainer extends HookWidget {
-  const _BottomSheetContainer(this.request, {Key key}) : super(key: key);
-
-  final DeliveryRequested request;
+  final Address dropoff;
 
   @override
   Widget build(BuildContext _context) =>
-      _bottomSheetContainer(_context, request);
+      _requestInfo(_context, pickup, dropoff);
 }
 
-class _BottomSheet extends StatelessWidget {
-  const _BottomSheet(this.request, this.acceptButtonState,
-      this.rejectButtonState, this.onAcceptRequest, this.onRejectRequest,
-      {Key key})
-      : super(key: key);
-
-  final DeliveryRequested request;
-
-  final ButtonState acceptButtonState;
-
-  final ButtonState rejectButtonState;
-
-  final Function onAcceptRequest;
-
-  final Function onRejectRequest;
+class RequestPage extends HookWidget {
+  const RequestPage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => _bottomSheet(request,
-      acceptButtonState, rejectButtonState, onAcceptRequest, onRejectRequest);
-}
-
-class RequestPage extends StatelessWidget {
-  const RequestPage(this.request, {Key key}) : super(key: key);
-
-  final DeliveryRequested request;
-
-  @override
-  Widget build(BuildContext _context) => requestPage(request);
+  Widget build(BuildContext _context) => requestPage(_context);
 }

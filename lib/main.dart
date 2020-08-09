@@ -1,4 +1,6 @@
+import 'package:delivery_driver/customer/homePage.dart';
 import 'package:delivery_driver/iocContainer.dart';
+import 'package:delivery_driver/request/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +14,11 @@ class MyApp extends StatelessWidget {
   static final String token =
       "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUkNNa0ZHTWpsR1FUZ3lPVU5CUkVFMU9EaEJNRGt3UlRaRVEwRkZPVU0xUkRVelF6aERRZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1kZWxpdmVyeS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWU0YzVkODg0Y2JhMGUwZjE2Mjc3ZWYxIiwiYXVkIjoiaHR0cHM6Ly9kZWxpdmVyeS9hcGkiLCJpYXQiOjE1OTQxMTIzMTAsImV4cCI6MTU5NjcwNDMxMCwiYXpwIjoiR1l1OHFydUpoTnpMTTFKZWlQaWNVWFpmSXljNjNlUXYiLCJndHkiOiJwYXNzd29yZCIsInBlcm1pc3Npb25zIjpbXX0.ljIjZlTBlc8ASjoo2fPzG6E_vXPjGB8MzMRjZ_sG9St0amsQNcTztPRwMEVLzzIIXkLSw91aKUa-HiVvPdyanOnGrKmC5u1wjUZJ35FPe552OOisQBi_8-KHEAgNQYUKotisO4I5IajjVvkoAASCa2cyR9p3MC4Iyg3li84sSQyyUKksVaOO7Afm130sN3-c_5iD9K18xIVTV3pJJRSplwpNpbb9U8rDyiXRQ9c_2Yrs2PNyxNTCZPbZflWodggJf3-cQGpsWK6aPfIFW9EH4cjn03kT1X58i_SbHnX7G_56vwbLDovqxgCE3RAC_FQRfMQ5jb-BnpfW2gWIygXIWg";
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     // API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
 
-    IocContainer().courierRepository.fetch();
+    // IocContainer().courierRepository.fetch();
 
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
@@ -49,7 +50,11 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
           buttonTheme: ButtonThemeData(height: 36)),
-      home: HomePage(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => CustomerHomePage(),
+        "/request": (context) => RequestPage()
+      },
     );
   }
 }

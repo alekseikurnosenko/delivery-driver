@@ -1,18 +1,17 @@
 import 'package:delivery_driver/components/actionButton.dart';
+import 'package:delivery_driver/home/homePage.dart';
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:delivery_driver/request/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart'
     hide widget;
-import 'package:openapi/api.dart';
-import 'package:openapi/api/couriers_api.dart';
-import 'package:openapi/model/delivery_requested.dart';
+import 'package:openapi/model/address.dart';
 
 part 'main.g.dart';
 
 @swidget
-Widget _requestInfo(BuildContext context, DeliveryRequested request) =>
+Widget _requestInfo(BuildContext context, Address pickup, Address dropoff) =>
     Container(
       child: Column(
         children: <Widget>[
@@ -21,7 +20,7 @@ Widget _requestInfo(BuildContext context, DeliveryRequested request) =>
               "Pickup at",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(request.pickup.address)
+            Text(pickup.address)
           ]),
           Container(
             height: 8,
@@ -29,32 +28,47 @@ Widget _requestInfo(BuildContext context, DeliveryRequested request) =>
           Column(
             children: <Widget>[
               Text("Deliver to", style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(request.dropoff.address)
+              Text(dropoff.address)
             ],
           )
         ],
       ),
     );
 
+class RequestPageArguments {
+  final String orderId;
+  final Address pickup;
+  final Address dropoff;
+
+  RequestPageArguments(this.orderId, this.pickup, this.dropoff); 
+}
+
 @hwidget
-Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
+Widget requestPage(BuildContext context) {
+  RequestPageArguments args = ModalRoute.of(context).settings.arguments;
+  if (args == null) {
+    throw Exception("No arguments passed");
+  }
+
   var acceptButtonState = useState(ButtonState.normal());
   var rejectButtonState = useState(ButtonState.normal());
 
-  var orderId = "1";
   var onAcceptRequest = () async {
     acceptButtonState.value = ButtonState.loading();
     rejectButtonState.value = ButtonState.disabled();
 
     try {
       var courier = await IocContainer().courierRepository.observe().first;
-      IocContainer().api.getCouriersApi().acceptDeliveryRequest(courier.id, request.orderId);
+      IocContainer()
+          .api
+          .getCouriersApi()
+          .acceptDeliveryRequest(courier.id, args.orderId);
 
       Navigator.of(context).pop();
     } catch (e) {
       acceptButtonState.value = ButtonState.normal();
       rejectButtonState.value = ButtonState.normal();
-      // Show error
+      // TODO: Show error
     }
   };
 
@@ -64,28 +78,29 @@ Widget _bottomSheetContainer(BuildContext context, DeliveryRequested request) {
 
     try {
       var courier = await IocContainer().courierRepository.observe().first;
-      IocContainer().api.getCouriersApi().rejectDeliveryRequest(courier.id, request.orderId);
-      
+      IocContainer()
+          .api
+          .getCouriersApi()
+          .rejectDeliveryRequest(courier.id, args.orderId);
+
       Navigator.of(context).pop();
     } catch (e) {
       acceptButtonState.value = ButtonState.normal();
       rejectButtonState.value = ButtonState.normal();
-      // Show error
+      // TODO: Show error
     }
   };
 
-  return _BottomSheet(request, acceptButtonState.value, rejectButtonState.value,
-      onAcceptRequest, onRejectRequest);
-}
-
-@swidget
-Widget _bottomSheet(
-        DeliveryRequested request,
-        ButtonState acceptButtonState,
-        ButtonState rejectButtonState,
-        Function onAcceptRequest,
-        Function onRejectRequest) =>
-    Container(
+  return Scaffold(
+      body: Stack(children: [
+    Map(
+        pickup: args.pickup.location,
+        dropoff: args.dropoff.location,
+        padding: EdgeInsets.only(
+            bottom: 210)), // Need to somehow get widget size here
+    Column(children: <Widget>[
+      Expanded(child: Container()),
+      Container(
         decoration: BoxDecoration(
             boxShadow: [BoxShadow(blurRadius: 10, color: Colors.grey)],
             color: Colors.white,
@@ -97,33 +112,19 @@ Widget _bottomSheet(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _RequestInfo(request),
+              _RequestInfo(args.pickup, args.dropoff),
               Container(height: 8),
               ActionButton(
                   onPressed: onAcceptRequest,
-                  state: acceptButtonState,
+                  state: acceptButtonState.value,
                   label: Text("Accept request")),
               ActionButton(
                   onPressed: onRejectRequest,
                   label: Text("Reject request"),
                   style: ButtonStyle.secondary(),
-                  state: rejectButtonState),
-            ]));
-
-@swidget
-Widget requestPage(DeliveryRequested request) {
-  return Scaffold(
-      body: Stack(children: [
-    Map(
-        pickup: request.pickup.location,
-        dropoff: request.dropoff.location,
-        padding: EdgeInsets.only(
-            bottom: 210)), // Need to somehow get widget size here
-    Column(
-      children: <Widget>[
-        Expanded(child: Container()),
-        _BottomSheetContainer(request)
-      ],
-    )
+                  state: rejectButtonState.value),
+            ]),
+      )
+    ])
   ]));
 }

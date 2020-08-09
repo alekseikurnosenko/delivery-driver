@@ -22,10 +22,10 @@ class WebsocketClient {
       var payload = jsonDecode(message['payload']);
       switch (type) {
         case "com.delivery.demo.delivery.DeliveryRequested": {
-          return serializers.deserializeWith(DeliveryRequested.serializer, payload);
+          return standardSerializers.deserializeWith(DeliveryRequested.serializer, payload);
         }
         case "com.delivery.demo.order.OrderAssigned": {
-          return serializers.deserializeWith(OrderAssigned.serializer, payload);
+          return standardSerializers.deserializeWith(OrderAssigned.serializer, payload);
         }
         default: {
           print("Unknown event type: $type");
