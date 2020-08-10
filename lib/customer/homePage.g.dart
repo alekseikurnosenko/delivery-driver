@@ -13,20 +13,22 @@ class AddressPicker extends StatelessWidget {
   Widget build(BuildContext _context) => addressPicker(_context);
 }
 
-class _Rating extends StatelessWidget {
-  const _Rating(this.rating, {Key key}) : super(key: key);
+class RestaurantRating extends StatelessWidget {
+  const RestaurantRating(this.rating, {Key key}) : super(key: key);
 
   final double rating;
 
   @override
-  Widget build(BuildContext _context) => _rating(_context, rating);
+  Widget build(BuildContext _context) => restaurantRating(_context, rating);
 }
 
 class RestaurantItem extends StatelessWidget {
-  const RestaurantItem({Key key}) : super(key: key);
+  const RestaurantItem(this.restaurant, {Key key}) : super(key: key);
+
+  final Restaurant restaurant;
 
   @override
-  Widget build(BuildContext _context) => restaurantItem(_context);
+  Widget build(BuildContext _context) => restaurantItem(_context, restaurant);
 }
 
 class CustomerHomePage extends HookWidget {
