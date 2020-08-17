@@ -2,9 +2,9 @@
         import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'dish_dto.g.dart';
+part 'dish.g.dart';
 
-abstract class DishDTO implements Built<DishDTO, DishDTOBuilder> {
+abstract class Dish implements Built<Dish, DishBuilder> {
 
     
         @nullable
@@ -20,10 +20,10 @@ abstract class DishDTO implements Built<DishDTO, DishDTOBuilder> {
     MoneyView get price;
 
     // Boilerplate code needed to wire-up generated code
-    DishDTO._();
+    Dish._();
 
-    factory DishDTO([updates(DishDTOBuilder b)]) = _$DishDTO;
-    static Serializer<DishDTO> get serializer => _$dishDTOSerializer;
+    factory Dish([updates(DishBuilder b)]) = _$Dish;
+    static Serializer<Dish> get serializer => _$dishSerializer;
 
 }
 

@@ -42,6 +42,12 @@ class _$CreateRestaurantInputSerializer
         ..add(serializers.serialize(object.currency,
             specifiedType: const FullType(String)));
     }
+    if (object.imageUrl != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(object.imageUrl,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -69,6 +75,10 @@ class _$CreateRestaurantInputSerializer
           result.currency = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -83,12 +93,15 @@ class _$CreateRestaurantInput extends CreateRestaurantInput {
   final Address address;
   @override
   final String currency;
+  @override
+  final String imageUrl;
 
   factory _$CreateRestaurantInput(
           [void Function(CreateRestaurantInputBuilder) updates]) =>
       (new CreateRestaurantInputBuilder()..update(updates)).build();
 
-  _$CreateRestaurantInput._({this.name, this.address, this.currency})
+  _$CreateRestaurantInput._(
+      {this.name, this.address, this.currency, this.imageUrl})
       : super._();
 
   @override
@@ -106,13 +119,15 @@ class _$CreateRestaurantInput extends CreateRestaurantInput {
     return other is CreateRestaurantInput &&
         name == other.name &&
         address == other.address &&
-        currency == other.currency;
+        currency == other.currency &&
+        imageUrl == other.imageUrl;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, name.hashCode), address.hashCode), currency.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, name.hashCode), address.hashCode), currency.hashCode),
+        imageUrl.hashCode));
   }
 
   @override
@@ -120,7 +135,8 @@ class _$CreateRestaurantInput extends CreateRestaurantInput {
     return (newBuiltValueToStringHelper('CreateRestaurantInput')
           ..add('name', name)
           ..add('address', address)
-          ..add('currency', currency))
+          ..add('currency', currency)
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
@@ -141,6 +157,10 @@ class CreateRestaurantInputBuilder
   String get currency => _$this._currency;
   set currency(String currency) => _$this._currency = currency;
 
+  String _imageUrl;
+  String get imageUrl => _$this._imageUrl;
+  set imageUrl(String imageUrl) => _$this._imageUrl = imageUrl;
+
   CreateRestaurantInputBuilder();
 
   CreateRestaurantInputBuilder get _$this {
@@ -148,6 +168,7 @@ class CreateRestaurantInputBuilder
       _name = _$v.name;
       _address = _$v.address?.toBuilder();
       _currency = _$v.currency;
+      _imageUrl = _$v.imageUrl;
       _$v = null;
     }
     return this;
@@ -172,7 +193,10 @@ class CreateRestaurantInputBuilder
     try {
       _$result = _$v ??
           new _$CreateRestaurantInput._(
-              name: name, address: _address?.build(), currency: currency);
+              name: name,
+              address: _address?.build(),
+              currency: currency,
+              imageUrl: imageUrl);
     } catch (_) {
       String _$failedField;
       try {

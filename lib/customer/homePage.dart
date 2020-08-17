@@ -1,5 +1,6 @@
 import 'package:delivery_driver/appTextStyle.dart';
 import 'package:delivery_driver/customer/restaurantPage.dart';
+import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
@@ -93,7 +94,16 @@ Widget restaurantItem(BuildContext context, Restaurant restaurant) {
 
 @hwidget
 Widget customerHomePage() {
-  var restaurant = Restaurant((b) => b..name = "Slim Jims");
+  // var restaurant = Restaurant((b) => b..name = "Slim Jims");
+
+  var restaurants = useState<List<Restaurant>>([]);
+  useEffect(() {
+    IocContainer()
+        .api
+        .getRestaurantsApi()
+        .restaurants()
+        .then((value) => restaurants.value = value.data);
+  }, []);
 
   return Scaffold(
     body: SafeArea(
@@ -102,7 +112,12 @@ Widget customerHomePage() {
             child: Column(
               children: [
                 AddressPicker(),
-                RestaurantItem(restaurant),
+                Expanded(
+                    child: ListView.builder(
+                        itemCount: restaurants.value.length,
+                        itemBuilder: (context, index) {
+                          return RestaurantItem(restaurants.value[index]);
+                        }))
               ],
             ))),
   );

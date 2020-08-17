@@ -14,17 +14,14 @@ class _DeliveryDetails extends StatelessWidget {
 }
 
 class _DishItem extends StatelessWidget {
-  const _DishItem({Key key}) : super(key: key);
+  const _DishItem(this.dish, this.restaurant, {Key key}) : super(key: key);
+
+  final Dish dish;
+
+  final Restaurant restaurant;
 
   @override
-  Widget build(BuildContext _context) => _dishItem(_context);
-}
-
-class _Dishes extends StatelessWidget {
-  const _Dishes({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext _context) => _dishes(_context);
+  Widget build(BuildContext _context) => _dishItem(_context, dish, restaurant);
 }
 
 class RestaurantPage extends HookWidget {

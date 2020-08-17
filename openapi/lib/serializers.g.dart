@@ -22,7 +22,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CreateRestaurantInput.serializer)
       ..add(DeliveryRequestDTO.serializer)
       ..add(DeliveryRequested.serializer)
-      ..add(DishDTO.serializer)
+      ..add(Dish.serializer)
+      ..add(DomainEvent.serializer)
+      ..add(EditDishInput.serializer)
+      ..add(EditRestaurantInput.serializer)
       ..add(LatLng.serializer)
       ..add(MoneyView.serializer)
       ..add(Order.serializer)
@@ -35,15 +38,24 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(OrderPreparationFinished.serializer)
       ..add(OrderPreparationStarted.serializer)
       ..add(OrderStatus.serializer)
+      ..add(PageOrder.serializer)
+      ..add(Pageable.serializer)
       ..add(Profile.serializer)
       ..add(RemoveFromBasketInput.serializer)
       ..add(Restaurant.serializer)
       ..add(RestaurantAdded.serializer)
       ..add(SetPaymentMethodInput.serializer)
+      ..add(Sort.serializer)
       ..add(UpdateLocationInput.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(BasketItemDTO)]),
           () => new ListBuilder<BasketItemDTO>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(DomainEvent)]),
+          () => new ListBuilder<DomainEvent>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Order)]),
+          () => new ListBuilder<Order>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Order)]),
           () => new ListBuilder<Order>())

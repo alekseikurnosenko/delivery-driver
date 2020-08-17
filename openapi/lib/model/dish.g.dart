@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dish_dto.dart';
+part of 'dish.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<DishDTO> _$dishDTOSerializer = new _$DishDTOSerializer();
+Serializer<Dish> _$dishSerializer = new _$DishSerializer();
 
-class _$DishDTOSerializer implements StructuredSerializer<DishDTO> {
+class _$DishSerializer implements StructuredSerializer<Dish> {
   @override
-  final Iterable<Type> types = const [DishDTO, _$DishDTO];
+  final Iterable<Type> types = const [Dish, _$Dish];
   @override
-  final String wireName = 'DishDTO';
+  final String wireName = 'Dish';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, DishDTO object,
+  Iterable<Object> serialize(Serializers serializers, Dish object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.id != null) {
@@ -40,9 +40,9 @@ class _$DishDTOSerializer implements StructuredSerializer<DishDTO> {
   }
 
   @override
-  DishDTO deserialize(Serializers serializers, Iterable<Object> serialized,
+  Dish deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new DishDTOBuilder();
+    final result = new DishBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -69,7 +69,7 @@ class _$DishDTOSerializer implements StructuredSerializer<DishDTO> {
   }
 }
 
-class _$DishDTO extends DishDTO {
+class _$Dish extends Dish {
   @override
   final String id;
   @override
@@ -77,22 +77,22 @@ class _$DishDTO extends DishDTO {
   @override
   final MoneyView price;
 
-  factory _$DishDTO([void Function(DishDTOBuilder) updates]) =>
-      (new DishDTOBuilder()..update(updates)).build();
+  factory _$Dish([void Function(DishBuilder) updates]) =>
+      (new DishBuilder()..update(updates)).build();
 
-  _$DishDTO._({this.id, this.name, this.price}) : super._();
+  _$Dish._({this.id, this.name, this.price}) : super._();
 
   @override
-  DishDTO rebuild(void Function(DishDTOBuilder) updates) =>
+  Dish rebuild(void Function(DishBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  DishDTOBuilder toBuilder() => new DishDTOBuilder()..replace(this);
+  DishBuilder toBuilder() => new DishBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is DishDTO &&
+    return other is Dish &&
         id == other.id &&
         name == other.name &&
         price == other.price;
@@ -105,7 +105,7 @@ class _$DishDTO extends DishDTO {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('DishDTO')
+    return (newBuiltValueToStringHelper('Dish')
           ..add('id', id)
           ..add('name', name)
           ..add('price', price))
@@ -113,8 +113,8 @@ class _$DishDTO extends DishDTO {
   }
 }
 
-class DishDTOBuilder implements Builder<DishDTO, DishDTOBuilder> {
-  _$DishDTO _$v;
+class DishBuilder implements Builder<Dish, DishBuilder> {
+  _$Dish _$v;
 
   String _id;
   String get id => _$this._id;
@@ -128,9 +128,9 @@ class DishDTOBuilder implements Builder<DishDTO, DishDTOBuilder> {
   MoneyViewBuilder get price => _$this._price ??= new MoneyViewBuilder();
   set price(MoneyViewBuilder price) => _$this._price = price;
 
-  DishDTOBuilder();
+  DishBuilder();
 
-  DishDTOBuilder get _$this {
+  DishBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _name = _$v.name;
@@ -141,24 +141,24 @@ class DishDTOBuilder implements Builder<DishDTO, DishDTOBuilder> {
   }
 
   @override
-  void replace(DishDTO other) {
+  void replace(Dish other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$DishDTO;
+    _$v = other as _$Dish;
   }
 
   @override
-  void update(void Function(DishDTOBuilder) updates) {
+  void update(void Function(DishBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$DishDTO build() {
-    _$DishDTO _$result;
+  _$Dish build() {
+    _$Dish _$result;
     try {
       _$result =
-          _$v ?? new _$DishDTO._(id: id, name: name, price: _price?.build());
+          _$v ?? new _$Dish._(id: id, name: name, price: _price?.build());
     } catch (_) {
       String _$failedField;
       try {
@@ -166,7 +166,7 @@ class DishDTOBuilder implements Builder<DishDTO, DishDTOBuilder> {
         _price?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'DishDTO', _$failedField, e.toString());
+            'Dish', _$failedField, e.toString());
       }
       rethrow;
     }

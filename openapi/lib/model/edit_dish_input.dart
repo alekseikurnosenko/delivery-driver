@@ -1,9 +1,9 @@
         import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'create_dish_input.g.dart';
+part 'edit_dish_input.g.dart';
 
-abstract class CreateDishInput implements Built<CreateDishInput, CreateDishInputBuilder> {
+abstract class EditDishInput implements Built<EditDishInput, EditDishInputBuilder> {
 
     
         @nullable
@@ -19,10 +19,10 @@ abstract class CreateDishInput implements Built<CreateDishInput, CreateDishInput
     String get imageUrl;
 
     // Boilerplate code needed to wire-up generated code
-    CreateDishInput._();
+    EditDishInput._();
 
-    factory CreateDishInput([updates(CreateDishInputBuilder b)]) = _$CreateDishInput;
-    static Serializer<CreateDishInput> get serializer => _$createDishInputSerializer;
+    factory EditDishInput([updates(EditDishInputBuilder b)]) = _$EditDishInput;
+    static Serializer<EditDishInput> get serializer => _$editDishInputSerializer;
 
 }
 

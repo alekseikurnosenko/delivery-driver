@@ -1,4 +1,4 @@
-            import 'package:openapi/model/dish_dto.dart';
+            import 'package:openapi/model/dish.dart';
         import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -9,7 +9,7 @@ abstract class BasketItemDTO implements Built<BasketItemDTO, BasketItemDTOBuilde
     
         @nullable
     @BuiltValueField(wireName: r'dish')
-    DishDTO get dish;
+    Dish get dish;
     
         @nullable
     @BuiltValueField(wireName: r'quantity')

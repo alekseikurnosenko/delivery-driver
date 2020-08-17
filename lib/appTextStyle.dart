@@ -9,6 +9,9 @@ class AppTextStyle {
   static TextStyle header(BuildContext context) =>
       Theme.of(context).textTheme.headline4.copyWith(color: Colors.black);
 
+        static TextStyle dialogHeader(BuildContext context) =>
+      Theme.of(context).textTheme.headline5.copyWith(color: Colors.black);
+
   static sectionHeader(BuildContext context) =>
       Theme.of(context).textTheme.subtitle2.copyWith(color: Colors.black);
 

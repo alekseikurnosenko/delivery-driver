@@ -24,6 +24,12 @@ class _$ProfileSerializer implements StructuredSerializer<Profile> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(String)));
     }
+    if (object.createdAt != null) {
+      result
+        ..add('createdAt')
+        ..add(serializers.serialize(object.createdAt,
+            specifiedType: const FullType(DateTime)));
+    }
     if (object.userId != null) {
       result
         ..add('userId')
@@ -41,6 +47,19 @@ class _$ProfileSerializer implements StructuredSerializer<Profile> {
         ..add('paymentMethodId')
         ..add(serializers.serialize(object.paymentMethodId,
             specifiedType: const FullType(String)));
+    }
+    if (object.events != null) {
+      result
+        ..add('events')
+        ..add(serializers.serialize(object.events,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DomainEvent)])));
+    }
+    if (object.deleted != null) {
+      result
+        ..add('deleted')
+        ..add(serializers.serialize(object.deleted,
+            specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -60,6 +79,10 @@ class _$ProfileSerializer implements StructuredSerializer<Profile> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
         case 'userId':
           result.userId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -72,6 +95,16 @@ class _$ProfileSerializer implements StructuredSerializer<Profile> {
           result.paymentMethodId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'events':
+          result.events.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DomainEvent)]))
+              as BuiltList<Object>);
+          break;
+        case 'deleted':
+          result.deleted = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
       }
     }
 
@@ -83,17 +116,29 @@ class _$Profile extends Profile {
   @override
   final String id;
   @override
+  final DateTime createdAt;
+  @override
   final String userId;
   @override
   final Address deliveryAddress;
   @override
   final String paymentMethodId;
+  @override
+  final BuiltList<DomainEvent> events;
+  @override
+  final bool deleted;
 
   factory _$Profile([void Function(ProfileBuilder) updates]) =>
       (new ProfileBuilder()..update(updates)).build();
 
   _$Profile._(
-      {this.id, this.userId, this.deliveryAddress, this.paymentMethodId})
+      {this.id,
+      this.createdAt,
+      this.userId,
+      this.deliveryAddress,
+      this.paymentMethodId,
+      this.events,
+      this.deleted})
       : super._();
 
   @override
@@ -108,26 +153,38 @@ class _$Profile extends Profile {
     if (identical(other, this)) return true;
     return other is Profile &&
         id == other.id &&
+        createdAt == other.createdAt &&
         userId == other.userId &&
         deliveryAddress == other.deliveryAddress &&
-        paymentMethodId == other.paymentMethodId;
+        paymentMethodId == other.paymentMethodId &&
+        events == other.events &&
+        deleted == other.deleted;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, id.hashCode), userId.hashCode),
-            deliveryAddress.hashCode),
-        paymentMethodId.hashCode));
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, id.hashCode), createdAt.hashCode),
+                        userId.hashCode),
+                    deliveryAddress.hashCode),
+                paymentMethodId.hashCode),
+            events.hashCode),
+        deleted.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Profile')
           ..add('id', id)
+          ..add('createdAt', createdAt)
           ..add('userId', userId)
           ..add('deliveryAddress', deliveryAddress)
-          ..add('paymentMethodId', paymentMethodId))
+          ..add('paymentMethodId', paymentMethodId)
+          ..add('events', events)
+          ..add('deleted', deleted))
         .toString();
   }
 }
@@ -138,6 +195,10 @@ class ProfileBuilder implements Builder<Profile, ProfileBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  DateTime _createdAt;
+  DateTime get createdAt => _$this._createdAt;
+  set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
 
   String _userId;
   String get userId => _$this._userId;
@@ -154,14 +215,26 @@ class ProfileBuilder implements Builder<Profile, ProfileBuilder> {
   set paymentMethodId(String paymentMethodId) =>
       _$this._paymentMethodId = paymentMethodId;
 
+  ListBuilder<DomainEvent> _events;
+  ListBuilder<DomainEvent> get events =>
+      _$this._events ??= new ListBuilder<DomainEvent>();
+  set events(ListBuilder<DomainEvent> events) => _$this._events = events;
+
+  bool _deleted;
+  bool get deleted => _$this._deleted;
+  set deleted(bool deleted) => _$this._deleted = deleted;
+
   ProfileBuilder();
 
   ProfileBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _createdAt = _$v.createdAt;
       _userId = _$v.userId;
       _deliveryAddress = _$v.deliveryAddress?.toBuilder();
       _paymentMethodId = _$v.paymentMethodId;
+      _events = _$v.events?.toBuilder();
+      _deleted = _$v.deleted;
       _$v = null;
     }
     return this;
@@ -187,14 +260,20 @@ class ProfileBuilder implements Builder<Profile, ProfileBuilder> {
       _$result = _$v ??
           new _$Profile._(
               id: id,
+              createdAt: createdAt,
               userId: userId,
               deliveryAddress: _deliveryAddress?.build(),
-              paymentMethodId: paymentMethodId);
+              paymentMethodId: paymentMethodId,
+              events: _events?.build(),
+              deleted: deleted);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'deliveryAddress';
         _deliveryAddress?.build();
+
+        _$failedField = 'events';
+        _events?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Profile', _$failedField, e.toString());

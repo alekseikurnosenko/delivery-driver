@@ -260,7 +260,7 @@ class CouriersApi {
         /// 
         ///
         /// 
-        Future<Response<List<Order>>>orders1(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
+        Future<Response<List<Order>>>orders(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
         String _path = "/api/couriers/{courierId}/orders".replaceAll("{" r'courierId' "}", courierId.toString());
 

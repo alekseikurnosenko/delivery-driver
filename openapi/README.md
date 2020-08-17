@@ -67,7 +67,7 @@ Class | Method | HTTP request | Description
 *CouriersApi* | [**confirmOrderPickup**](doc//CouriersApi.md#confirmorderpickup) | **post** /api/couriers/{courierId}/orders/{orderId}/confirmPickup | 
 *CouriersApi* | [**couriers**](doc//CouriersApi.md#couriers) | **get** /api/couriers | 
 *CouriersApi* | [**createCourier**](doc//CouriersApi.md#createcourier) | **post** /api/couriers | 
-*CouriersApi* | [**orders1**](doc//CouriersApi.md#orders1) | **get** /api/couriers/{courierId}/orders | 
+*CouriersApi* | [**orders**](doc//CouriersApi.md#orders) | **get** /api/couriers/{courierId}/orders | 
 *CouriersApi* | [**ownCourier**](doc//CouriersApi.md#owncourier) | **get** /api/couriers/me | 
 *CouriersApi* | [**pendingDeliveryRequests**](doc//CouriersApi.md#pendingdeliveryrequests) | **get** /api/couriers/{courierId}/requests | 
 *CouriersApi* | [**rejectDeliveryRequest**](doc//CouriersApi.md#rejectdeliveryrequest) | **post** /api/couriers/{courierId}/requests/{orderId}/reject | 
@@ -81,8 +81,12 @@ Class | Method | HTTP request | Description
 *ProfileApi* | [**setPaymentMethod**](doc//ProfileApi.md#setpaymentmethod) | **post** /api/profile/payment_method | 
 *RestaurantsApi* | [**createDish**](doc//RestaurantsApi.md#createdish) | **post** /api/restaurants/{restaurantId}/dishes | Create dish served by restaurant
 *RestaurantsApi* | [**createRestaurant**](doc//RestaurantsApi.md#createrestaurant) | **post** /api/restaurants | Create new restaurant
+*RestaurantsApi* | [**deleteDish**](doc//RestaurantsApi.md#deletedish) | **delete** /api/restaurants/{restaurantId}/dishes/{dishId} | 
+*RestaurantsApi* | [**deleteRestaurant**](doc//RestaurantsApi.md#deleterestaurant) | **delete** /api/restaurants/{restaurantId} | 
+*RestaurantsApi* | [**editDish**](doc//RestaurantsApi.md#editdish) | **put** /api/restaurants/{restaurantId}/dishes/{dishId} | 
+*RestaurantsApi* | [**editRestaurant**](doc//RestaurantsApi.md#editrestaurant) | **put** /api/restaurants/{restaurantId} | Edit restaurant info
 *RestaurantsApi* | [**finishPreparingOrder**](doc//RestaurantsApi.md#finishpreparingorder) | **post** /api/restaurants/{restaurantId}/orders/{orderId}/finishPreparing | 
-*RestaurantsApi* | [**orders**](doc//RestaurantsApi.md#orders) | **get** /api/restaurants/{restaurantId}/orders | 
+*RestaurantsApi* | [**orders1**](doc//RestaurantsApi.md#orders1) | **get** /api/restaurants/{restaurantId}/orders | 
 *RestaurantsApi* | [**ownRestaurant**](doc//RestaurantsApi.md#ownrestaurant) | **get** /api/restaurants/me | 
 *RestaurantsApi* | [**restaurant**](doc//RestaurantsApi.md#restaurant) | **get** /api/restaurants/{restaurantId} | Get restaurant info
 *RestaurantsApi* | [**restaurantDishes**](doc//RestaurantsApi.md#restaurantdishes) | **get** /api/restaurants/{restaurantId}/dishes | Get restaurant dishes
@@ -107,7 +111,10 @@ Class | Method | HTTP request | Description
  - [CreateRestaurantInput](doc//CreateRestaurantInput.md)
  - [DeliveryRequestDTO](doc//DeliveryRequestDTO.md)
  - [DeliveryRequested](doc//DeliveryRequested.md)
- - [DishDTO](doc//DishDTO.md)
+ - [Dish](doc//Dish.md)
+ - [DomainEvent](doc//DomainEvent.md)
+ - [EditDishInput](doc//EditDishInput.md)
+ - [EditRestaurantInput](doc//EditRestaurantInput.md)
  - [LatLng](doc//LatLng.md)
  - [MoneyView](doc//MoneyView.md)
  - [Order](doc//Order.md)
@@ -120,11 +127,14 @@ Class | Method | HTTP request | Description
  - [OrderPreparationFinished](doc//OrderPreparationFinished.md)
  - [OrderPreparationStarted](doc//OrderPreparationStarted.md)
  - [OrderStatus](doc//OrderStatus.md)
+ - [PageOrder](doc//PageOrder.md)
+ - [Pageable](doc//Pageable.md)
  - [Profile](doc//Profile.md)
  - [RemoveFromBasketInput](doc//RemoveFromBasketInput.md)
  - [Restaurant](doc//Restaurant.md)
  - [RestaurantAdded](doc//RestaurantAdded.md)
  - [SetPaymentMethodInput](doc//SetPaymentMethodInput.md)
+ - [Sort](doc//Sort.md)
  - [UpdateLocationInput](doc//UpdateLocationInput.md)
 
 

@@ -21,7 +21,10 @@ import 'package:openapi/model/create_dish_input.dart';
 import 'package:openapi/model/create_restaurant_input.dart';
 import 'package:openapi/model/delivery_request_dto.dart';
 import 'package:openapi/model/delivery_requested.dart';
-import 'package:openapi/model/dish_dto.dart';
+import 'package:openapi/model/dish.dart';
+import 'package:openapi/model/domain_event.dart';
+import 'package:openapi/model/edit_dish_input.dart';
+import 'package:openapi/model/edit_restaurant_input.dart';
 import 'package:openapi/model/lat_lng.dart';
 import 'package:openapi/model/money_view.dart';
 import 'package:openapi/model/order.dart';
@@ -34,11 +37,14 @@ import 'package:openapi/model/order_placed.dart';
 import 'package:openapi/model/order_preparation_finished.dart';
 import 'package:openapi/model/order_preparation_started.dart';
 import 'package:openapi/model/order_status.dart';
+import 'package:openapi/model/page_order.dart';
+import 'package:openapi/model/pageable.dart';
 import 'package:openapi/model/profile.dart';
 import 'package:openapi/model/remove_from_basket_input.dart';
 import 'package:openapi/model/restaurant.dart';
 import 'package:openapi/model/restaurant_added.dart';
 import 'package:openapi/model/set_payment_method_input.dart';
+import 'package:openapi/model/sort.dart';
 import 'package:openapi/model/update_location_input.dart';
 
 
@@ -60,7 +66,10 @@ CreateDishInput,
 CreateRestaurantInput,
 DeliveryRequestDTO,
 DeliveryRequested,
-DishDTO,
+Dish,
+DomainEvent,
+EditDishInput,
+EditRestaurantInput,
 LatLng,
 MoneyView,
 Order,
@@ -73,11 +82,14 @@ OrderPlaced,
 OrderPreparationFinished,
 OrderPreparationStarted,
 OrderStatus,
+PageOrder,
+Pageable,
 Profile,
 RemoveFromBasketInput,
 Restaurant,
 RestaurantAdded,
 SetPaymentMethodInput,
+Sort,
 UpdateLocationInput,
 
 ])
@@ -130,8 +142,17 @@ const FullType(BuiltList, const [const FullType(DeliveryRequestDTO)]),
 const FullType(BuiltList, const [const FullType(DeliveryRequested)]),
 () => new ListBuilder<DeliveryRequested>())
 ..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(DishDTO)]),
-() => new ListBuilder<DishDTO>())
+const FullType(BuiltList, const [const FullType(Dish)]),
+() => new ListBuilder<Dish>())
+..addBuilderFactory(
+const FullType(BuiltList, const [const FullType(DomainEvent)]),
+() => new ListBuilder<DomainEvent>())
+..addBuilderFactory(
+const FullType(BuiltList, const [const FullType(EditDishInput)]),
+() => new ListBuilder<EditDishInput>())
+..addBuilderFactory(
+const FullType(BuiltList, const [const FullType(EditRestaurantInput)]),
+() => new ListBuilder<EditRestaurantInput>())
 ..addBuilderFactory(
 const FullType(BuiltList, const [const FullType(LatLng)]),
 () => new ListBuilder<LatLng>())
@@ -169,6 +190,12 @@ const FullType(BuiltList, const [const FullType(OrderPreparationStarted)]),
 const FullType(BuiltList, const [const FullType(OrderStatus)]),
 () => new ListBuilder<OrderStatus>())
 ..addBuilderFactory(
+const FullType(BuiltList, const [const FullType(PageOrder)]),
+() => new ListBuilder<PageOrder>())
+..addBuilderFactory(
+const FullType(BuiltList, const [const FullType(Pageable)]),
+() => new ListBuilder<Pageable>())
+..addBuilderFactory(
 const FullType(BuiltList, const [const FullType(Profile)]),
 () => new ListBuilder<Profile>())
 ..addBuilderFactory(
@@ -183,6 +210,9 @@ const FullType(BuiltList, const [const FullType(RestaurantAdded)]),
 ..addBuilderFactory(
 const FullType(BuiltList, const [const FullType(SetPaymentMethodInput)]),
 () => new ListBuilder<SetPaymentMethodInput>())
+..addBuilderFactory(
+const FullType(BuiltList, const [const FullType(Sort)]),
+() => new ListBuilder<Sort>())
 ..addBuilderFactory(
 const FullType(BuiltList, const [const FullType(UpdateLocationInput)]),
 () => new ListBuilder<UpdateLocationInput>())

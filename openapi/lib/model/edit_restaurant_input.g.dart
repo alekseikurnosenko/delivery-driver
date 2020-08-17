@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'restaurant.dart';
+part of 'edit_restaurant_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Restaurant> _$restaurantSerializer = new _$RestaurantSerializer();
+Serializer<EditRestaurantInput> _$editRestaurantInputSerializer =
+    new _$EditRestaurantInputSerializer();
 
-class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
+class _$EditRestaurantInputSerializer
+    implements StructuredSerializer<EditRestaurantInput> {
   @override
-  final Iterable<Type> types = const [Restaurant, _$Restaurant];
+  final Iterable<Type> types = const [
+    EditRestaurantInput,
+    _$EditRestaurantInput
+  ];
   @override
-  final String wireName = 'Restaurant';
+  final String wireName = 'EditRestaurantInput';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, Restaurant object,
+  Iterable<Object> serialize(
+      Serializers serializers, EditRestaurantInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
-      result
-        ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(String)));
-    }
     if (object.name != null) {
       result
         ..add('name')
@@ -36,19 +36,20 @@ class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
         ..add(serializers.serialize(object.address,
             specifiedType: const FullType(Address)));
     }
-    if (object.currency != null) {
+    if (object.imageUrl != null) {
       result
-        ..add('currency')
-        ..add(serializers.serialize(object.currency,
+        ..add('imageUrl')
+        ..add(serializers.serialize(object.imageUrl,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  Restaurant deserialize(Serializers serializers, Iterable<Object> serialized,
+  EditRestaurantInput deserialize(
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new RestaurantBuilder();
+    final result = new EditRestaurantInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -56,10 +57,6 @@ class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'name':
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -68,8 +65,8 @@ class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
           result.address.replace(serializers.deserialize(value,
               specifiedType: const FullType(Address)) as Address);
           break;
-        case 'currency':
-          result.currency = serializers.deserialize(value,
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -79,62 +76,57 @@ class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
   }
 }
 
-class _$Restaurant extends Restaurant {
-  @override
-  final String id;
+class _$EditRestaurantInput extends EditRestaurantInput {
   @override
   final String name;
   @override
   final Address address;
   @override
-  final String currency;
+  final String imageUrl;
 
-  factory _$Restaurant([void Function(RestaurantBuilder) updates]) =>
-      (new RestaurantBuilder()..update(updates)).build();
+  factory _$EditRestaurantInput(
+          [void Function(EditRestaurantInputBuilder) updates]) =>
+      (new EditRestaurantInputBuilder()..update(updates)).build();
 
-  _$Restaurant._({this.id, this.name, this.address, this.currency}) : super._();
+  _$EditRestaurantInput._({this.name, this.address, this.imageUrl}) : super._();
 
   @override
-  Restaurant rebuild(void Function(RestaurantBuilder) updates) =>
+  EditRestaurantInput rebuild(
+          void Function(EditRestaurantInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RestaurantBuilder toBuilder() => new RestaurantBuilder()..replace(this);
+  EditRestaurantInputBuilder toBuilder() =>
+      new EditRestaurantInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Restaurant &&
-        id == other.id &&
+    return other is EditRestaurantInput &&
         name == other.name &&
         address == other.address &&
-        currency == other.currency;
+        imageUrl == other.imageUrl;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, id.hashCode), name.hashCode), address.hashCode),
-        currency.hashCode));
+    return $jf(
+        $jc($jc($jc(0, name.hashCode), address.hashCode), imageUrl.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Restaurant')
-          ..add('id', id)
+    return (newBuiltValueToStringHelper('EditRestaurantInput')
           ..add('name', name)
           ..add('address', address)
-          ..add('currency', currency))
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
 
-class RestaurantBuilder implements Builder<Restaurant, RestaurantBuilder> {
-  _$Restaurant _$v;
-
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+class EditRestaurantInputBuilder
+    implements Builder<EditRestaurantInput, EditRestaurantInputBuilder> {
+  _$EditRestaurantInput _$v;
 
   String _name;
   String get name => _$this._name;
@@ -144,46 +136,42 @@ class RestaurantBuilder implements Builder<Restaurant, RestaurantBuilder> {
   AddressBuilder get address => _$this._address ??= new AddressBuilder();
   set address(AddressBuilder address) => _$this._address = address;
 
-  String _currency;
-  String get currency => _$this._currency;
-  set currency(String currency) => _$this._currency = currency;
+  String _imageUrl;
+  String get imageUrl => _$this._imageUrl;
+  set imageUrl(String imageUrl) => _$this._imageUrl = imageUrl;
 
-  RestaurantBuilder();
+  EditRestaurantInputBuilder();
 
-  RestaurantBuilder get _$this {
+  EditRestaurantInputBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
       _name = _$v.name;
       _address = _$v.address?.toBuilder();
-      _currency = _$v.currency;
+      _imageUrl = _$v.imageUrl;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(Restaurant other) {
+  void replace(EditRestaurantInput other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Restaurant;
+    _$v = other as _$EditRestaurantInput;
   }
 
   @override
-  void update(void Function(RestaurantBuilder) updates) {
+  void update(void Function(EditRestaurantInputBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Restaurant build() {
-    _$Restaurant _$result;
+  _$EditRestaurantInput build() {
+    _$EditRestaurantInput _$result;
     try {
       _$result = _$v ??
-          new _$Restaurant._(
-              id: id,
-              name: name,
-              address: _address?.build(),
-              currency: currency);
+          new _$EditRestaurantInput._(
+              name: name, address: _address?.build(), imageUrl: imageUrl);
     } catch (_) {
       String _$failedField;
       try {
@@ -191,7 +179,7 @@ class RestaurantBuilder implements Builder<Restaurant, RestaurantBuilder> {
         _address?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Restaurant', _$failedField, e.toString());
+            'EditRestaurantInput', _$failedField, e.toString());
       }
       rethrow;
     }

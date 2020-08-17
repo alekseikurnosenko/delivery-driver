@@ -17,7 +17,10 @@ class IocContainer {
       _HeaderInterceptor(),
       _FirebaseTokenInterceptor(),
       LogInterceptor(
-          requestHeader: true, responseHeader: false, responseBody: true)
+          requestHeader: false,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false)
     ]);
     courierRepository = CourierRepository(api.getCouriersApi());
   }

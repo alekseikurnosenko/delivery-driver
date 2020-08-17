@@ -24,6 +24,12 @@ class _$OrderSerializer implements StructuredSerializer<Order> {
         ..add(serializers.serialize(object.id,
             specifiedType: const FullType(String)));
     }
+    if (object.createdAt != null) {
+      result
+        ..add('createdAt')
+        ..add(serializers.serialize(object.createdAt,
+            specifiedType: const FullType(DateTime)));
+    }
     if (object.totalAmount != null) {
       result
         ..add('totalAmount')
@@ -79,6 +85,10 @@ class _$OrderSerializer implements StructuredSerializer<Order> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
         case 'totalAmount':
           result.totalAmount.replace(serializers.deserialize(value,
               specifiedType: const FullType(MoneyView)) as MoneyView);
@@ -116,6 +126,8 @@ class _$Order extends Order {
   @override
   final String id;
   @override
+  final DateTime createdAt;
+  @override
   final MoneyView totalAmount;
   @override
   final Address deliveryAddress;
@@ -133,6 +145,7 @@ class _$Order extends Order {
 
   _$Order._(
       {this.id,
+      this.createdAt,
       this.totalAmount,
       this.deliveryAddress,
       this.restaurant,
@@ -153,6 +166,7 @@ class _$Order extends Order {
     if (identical(other, this)) return true;
     return other is Order &&
         id == other.id &&
+        createdAt == other.createdAt &&
         totalAmount == other.totalAmount &&
         deliveryAddress == other.deliveryAddress &&
         restaurant == other.restaurant &&
@@ -167,7 +181,9 @@ class _$Order extends Order {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, id.hashCode), totalAmount.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, id.hashCode), createdAt.hashCode),
+                            totalAmount.hashCode),
                         deliveryAddress.hashCode),
                     restaurant.hashCode),
                 courier.hashCode),
@@ -179,6 +195,7 @@ class _$Order extends Order {
   String toString() {
     return (newBuiltValueToStringHelper('Order')
           ..add('id', id)
+          ..add('createdAt', createdAt)
           ..add('totalAmount', totalAmount)
           ..add('deliveryAddress', deliveryAddress)
           ..add('restaurant', restaurant)
@@ -195,6 +212,10 @@ class OrderBuilder implements Builder<Order, OrderBuilder> {
   String _id;
   String get id => _$this._id;
   set id(String id) => _$this._id = id;
+
+  DateTime _createdAt;
+  DateTime get createdAt => _$this._createdAt;
+  set createdAt(DateTime createdAt) => _$this._createdAt = createdAt;
 
   MoneyViewBuilder _totalAmount;
   MoneyViewBuilder get totalAmount =>
@@ -232,6 +253,7 @@ class OrderBuilder implements Builder<Order, OrderBuilder> {
   OrderBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
+      _createdAt = _$v.createdAt;
       _totalAmount = _$v.totalAmount?.toBuilder();
       _deliveryAddress = _$v.deliveryAddress?.toBuilder();
       _restaurant = _$v.restaurant?.toBuilder();
@@ -263,6 +285,7 @@ class OrderBuilder implements Builder<Order, OrderBuilder> {
       _$result = _$v ??
           new _$Order._(
               id: id,
+              createdAt: createdAt,
               totalAmount: _totalAmount?.build(),
               deliveryAddress: _deliveryAddress?.build(),
               restaurant: _restaurant?.build(),

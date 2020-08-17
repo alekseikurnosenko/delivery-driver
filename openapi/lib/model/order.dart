@@ -18,6 +18,10 @@ abstract class Order implements Built<Order, OrderBuilder> {
     String get id;
     
         @nullable
+    @BuiltValueField(wireName: r'createdAt')
+    DateTime get createdAt;
+    
+        @nullable
     @BuiltValueField(wireName: r'totalAmount')
     MoneyView get totalAmount;
     

@@ -18,6 +18,10 @@ abstract class Restaurant implements Built<Restaurant, RestaurantBuilder> {
         @nullable
     @BuiltValueField(wireName: r'address')
     Address get address;
+    
+        @nullable
+    @BuiltValueField(wireName: r'currency')
+    String get currency;
 
     // Boilerplate code needed to wire-up generated code
     Restaurant._();

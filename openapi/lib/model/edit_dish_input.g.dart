@@ -1,23 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'create_dish_input.dart';
+part of 'edit_dish_input.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<CreateDishInput> _$createDishInputSerializer =
-    new _$CreateDishInputSerializer();
+Serializer<EditDishInput> _$editDishInputSerializer =
+    new _$EditDishInputSerializer();
 
-class _$CreateDishInputSerializer
-    implements StructuredSerializer<CreateDishInput> {
+class _$EditDishInputSerializer implements StructuredSerializer<EditDishInput> {
   @override
-  final Iterable<Type> types = const [CreateDishInput, _$CreateDishInput];
+  final Iterable<Type> types = const [EditDishInput, _$EditDishInput];
   @override
-  final String wireName = 'CreateDishInput';
+  final String wireName = 'EditDishInput';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CreateDishInput object,
+  Iterable<Object> serialize(Serializers serializers, EditDishInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.name != null) {
@@ -42,10 +41,10 @@ class _$CreateDishInputSerializer
   }
 
   @override
-  CreateDishInput deserialize(
+  EditDishInput deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new CreateDishInputBuilder();
+    final result = new EditDishInputBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -72,7 +71,7 @@ class _$CreateDishInputSerializer
   }
 }
 
-class _$CreateDishInput extends CreateDishInput {
+class _$EditDishInput extends EditDishInput {
   @override
   final String name;
   @override
@@ -80,23 +79,22 @@ class _$CreateDishInput extends CreateDishInput {
   @override
   final String imageUrl;
 
-  factory _$CreateDishInput([void Function(CreateDishInputBuilder) updates]) =>
-      (new CreateDishInputBuilder()..update(updates)).build();
+  factory _$EditDishInput([void Function(EditDishInputBuilder) updates]) =>
+      (new EditDishInputBuilder()..update(updates)).build();
 
-  _$CreateDishInput._({this.name, this.price, this.imageUrl}) : super._();
+  _$EditDishInput._({this.name, this.price, this.imageUrl}) : super._();
 
   @override
-  CreateDishInput rebuild(void Function(CreateDishInputBuilder) updates) =>
+  EditDishInput rebuild(void Function(EditDishInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CreateDishInputBuilder toBuilder() =>
-      new CreateDishInputBuilder()..replace(this);
+  EditDishInputBuilder toBuilder() => new EditDishInputBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CreateDishInput &&
+    return other is EditDishInput &&
         name == other.name &&
         price == other.price &&
         imageUrl == other.imageUrl;
@@ -110,7 +108,7 @@ class _$CreateDishInput extends CreateDishInput {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('CreateDishInput')
+    return (newBuiltValueToStringHelper('EditDishInput')
           ..add('name', name)
           ..add('price', price)
           ..add('imageUrl', imageUrl))
@@ -118,9 +116,9 @@ class _$CreateDishInput extends CreateDishInput {
   }
 }
 
-class CreateDishInputBuilder
-    implements Builder<CreateDishInput, CreateDishInputBuilder> {
-  _$CreateDishInput _$v;
+class EditDishInputBuilder
+    implements Builder<EditDishInput, EditDishInputBuilder> {
+  _$EditDishInput _$v;
 
   String _name;
   String get name => _$this._name;
@@ -134,9 +132,9 @@ class CreateDishInputBuilder
   String get imageUrl => _$this._imageUrl;
   set imageUrl(String imageUrl) => _$this._imageUrl = imageUrl;
 
-  CreateDishInputBuilder();
+  EditDishInputBuilder();
 
-  CreateDishInputBuilder get _$this {
+  EditDishInputBuilder get _$this {
     if (_$v != null) {
       _name = _$v.name;
       _price = _$v.price;
@@ -147,22 +145,22 @@ class CreateDishInputBuilder
   }
 
   @override
-  void replace(CreateDishInput other) {
+  void replace(EditDishInput other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$CreateDishInput;
+    _$v = other as _$EditDishInput;
   }
 
   @override
-  void update(void Function(CreateDishInputBuilder) updates) {
+  void update(void Function(EditDishInputBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$CreateDishInput build() {
+  _$EditDishInput build() {
     final _$result = _$v ??
-        new _$CreateDishInput._(name: name, price: price, imageUrl: imageUrl);
+        new _$EditDishInput._(name: name, price: price, imageUrl: imageUrl);
     replace(_$result);
     return _$result;
   }

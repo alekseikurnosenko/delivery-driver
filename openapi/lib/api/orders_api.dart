@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 
+import 'package:openapi/model/page_order.dart';
+import 'package:openapi/model/pageable.dart';
 import 'package:openapi/model/order.dart';
 
 class OrdersApi {
@@ -63,7 +65,7 @@ class OrdersApi {
         /// 
         ///
         /// 
-        Future<Response<List<Order>>>orders2({ CancelToken cancelToken, Map<String, String> headers,}) async {
+        Future<Response<PageOrder>>orders2(Pageable pageable,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
         String _path = "/api/orders";
 
@@ -71,6 +73,7 @@ class OrdersApi {
         Map<String, String> headerParams = Map.from(headers ?? {});
         dynamic bodyData;
 
+                queryParams[r'pageable'] = pageable;
         queryParams.removeWhere((key, value) => value == null);
         headerParams.removeWhere((key, value) => value == null);
 
@@ -93,11 +96,10 @@ class OrdersApi {
             cancelToken: cancelToken,
             ).then((response) {
 
-                final FullType type = const FullType(BuiltList, const [const FullType(Order)]);
-                BuiltList<Order> dataList = _serializers.deserialize(response.data is String ? jsonDecode(response.data) : response.data, specifiedType: type);
-                var data = dataList.toList();
+        var serializer = _serializers.serializerForType(PageOrder);
+        var data = _serializers.deserializeWith<PageOrder>(serializer, response.data is String ? jsonDecode(response.data) : response.data);
 
-            return Response<List<Order>>(
+            return Response<PageOrder>(
                 data: data,
                 headers: response.headers,
                 request: response.request,

@@ -2,9 +2,9 @@
         import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'create_restaurant_input.g.dart';
+part 'edit_restaurant_input.g.dart';
 
-abstract class CreateRestaurantInput implements Built<CreateRestaurantInput, CreateRestaurantInputBuilder> {
+abstract class EditRestaurantInput implements Built<EditRestaurantInput, EditRestaurantInputBuilder> {
 
     
         @nullable
@@ -16,18 +16,14 @@ abstract class CreateRestaurantInput implements Built<CreateRestaurantInput, Cre
     Address get address;
     
         @nullable
-    @BuiltValueField(wireName: r'currency')
-    String get currency;
-    
-        @nullable
     @BuiltValueField(wireName: r'imageUrl')
     String get imageUrl;
 
     // Boilerplate code needed to wire-up generated code
-    CreateRestaurantInput._();
+    EditRestaurantInput._();
 
-    factory CreateRestaurantInput([updates(CreateRestaurantInputBuilder b)]) = _$CreateRestaurantInput;
-    static Serializer<CreateRestaurantInput> get serializer => _$createRestaurantInputSerializer;
+    factory EditRestaurantInput([updates(EditRestaurantInputBuilder b)]) = _$EditRestaurantInput;
+    static Serializer<EditRestaurantInput> get serializer => _$editRestaurantInputSerializer;
 
 }
 

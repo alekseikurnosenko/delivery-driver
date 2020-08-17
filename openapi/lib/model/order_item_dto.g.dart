@@ -23,7 +23,7 @@ class _$OrderItemDTOSerializer implements StructuredSerializer<OrderItemDTO> {
       result
         ..add('dish')
         ..add(serializers.serialize(object.dish,
-            specifiedType: const FullType(DishDTO)));
+            specifiedType: const FullType(Dish)));
     }
     if (object.quantity != null) {
       result
@@ -47,7 +47,7 @@ class _$OrderItemDTOSerializer implements StructuredSerializer<OrderItemDTO> {
       switch (key) {
         case 'dish':
           result.dish.replace(serializers.deserialize(value,
-              specifiedType: const FullType(DishDTO)) as DishDTO);
+              specifiedType: const FullType(Dish)) as Dish);
           break;
         case 'quantity':
           result.quantity = serializers.deserialize(value,
@@ -62,7 +62,7 @@ class _$OrderItemDTOSerializer implements StructuredSerializer<OrderItemDTO> {
 
 class _$OrderItemDTO extends OrderItemDTO {
   @override
-  final DishDTO dish;
+  final Dish dish;
   @override
   final int quantity;
 
@@ -104,9 +104,9 @@ class OrderItemDTOBuilder
     implements Builder<OrderItemDTO, OrderItemDTOBuilder> {
   _$OrderItemDTO _$v;
 
-  DishDTOBuilder _dish;
-  DishDTOBuilder get dish => _$this._dish ??= new DishDTOBuilder();
-  set dish(DishDTOBuilder dish) => _$this._dish = dish;
+  DishBuilder _dish;
+  DishBuilder get dish => _$this._dish ??= new DishBuilder();
+  set dish(DishBuilder dish) => _$this._dish = dish;
 
   int _quantity;
   int get quantity => _$this._quantity;
