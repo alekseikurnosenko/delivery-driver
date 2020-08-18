@@ -1,10 +1,14 @@
 import 'package:delivery_driver/appTextStyle.dart';
+import 'package:delivery_driver/components/actionButton.dart';
+import 'package:delivery_driver/customer/ordersPage.dart';
+import 'package:delivery_driver/customer/restaurantItem.dart';
 import 'package:delivery_driver/customer/restaurantPage.dart';
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:openapi/model/basket_dto.dart';
 import 'package:openapi/model/restaurant.dart';
 
 part 'homePage.g.dart';
@@ -42,62 +46,69 @@ Widget restaurantRating(BuildContext context, double rating) {
 }
 
 @swidget
-Widget restaurantItem(BuildContext context, Restaurant restaurant) {
-  var imageUrl =
-      "https://img.cdn4dd.com/cdn-cgi/image/fit=contain,width=600,format=auto,quality=50/https://cdn.doordash.com/media/photos/ecd0a764-ee9e-46c7-a1ef-8fbfd3901085-retina-large.jpg";
-
-  var onTap = () {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => RestaurantPage(restaurant)));
-  };
-
-  return InkWell(
-      onTap: onTap,
+Widget _basketButton(BuildContext context, BasketDTO basket) {
+  return RawMaterialButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+      ),
+      fillColor: ButtonTheme.of(context).colorScheme.primary,
       child: Container(
-          padding: EdgeInsets.all(16),
-          child: Column(children: [
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
             Container(
-                height: 160,
-                width: double.infinity,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      imageUrl,
-                      fit: BoxFit.fitWidth,
-                    ))),
-            Container(height: 8),
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Text(restaurant.name, style: AppTextStyle.sectionHeader(context))
-            ]),
-            Container(height: 4),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text("\$\$ • Chinese, Asian, Takeout",
-                  style: AppTextStyle.copy(context)),
-              Text("29 min", style: AppTextStyle.copy(context))
-            ]),
-            Container(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: EdgeInsets.all(0),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                  size: 16,
+                )),
+            Container(width: 32),
+            Column(
               children: [
-                Row(
-                  children: [
-                    RestaurantRating(4.8),
-                    Container(width: 4),
-                    Text("500+ ratings", style: AppTextStyle.copy(context))
-                  ],
+                Text(
+                  "VIEW CART",
+                  style: AppTextStyle.copy(context).copyWith(
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
-                Text("\$0.99 delivery", style: AppTextStyle.copy(context))
+                Container(height: 2),
+                Text("McSomething's",
+                    style: AppTextStyle.sectionHeader(context)
+                        .copyWith(fontSize: 12.0, color: Colors.white))
               ],
-            )
-          ])));
+            ),
+            Container(width: 32),
+            Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey[300].withOpacity(0.3)),
+                child: Text(
+                  basket.items.length.toString(),
+                  style: AppTextStyle.sectionHeader(context)
+                      .copyWith(color: Colors.white),
+                )),
+          ])),
+      onPressed: () {});
+}
+
+class HomePage {
+  GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
+
+  HomePage() {}
 }
 
 @hwidget
-Widget customerHomePage() {
-  // var restaurant = Restaurant((b) => b..name = "Slim Jims");
+Widget customerHomePage(BuildContext context) {
+  var foodPage = useMemoized(() => HomePage(), []);
+  var ordersPage = useMemoized(() => HomePage(), []);
+  var pages = [foodPage, ordersPage];
+  var currentPageIndex = useState(0);
 
   var restaurants = useState<List<Restaurant>>([]);
   useEffect(() {
+    IocContainer().basketService.fetch();
     IocContainer()
         .api
         .getRestaurantsApi()
@@ -105,20 +116,72 @@ Widget customerHomePage() {
         .then((value) => restaurants.value = value.data);
   }, []);
 
+  // Subsribe to basket
+  var basket =
+      useStream(useMemoized(() => IocContainer().basketService.basket, []));
+  var isBasketButtonVisible = basket.hasData && basket.data.items.length > 0;
+
   return Scaffold(
-    body: SafeArea(
-        child: Container(
-            padding: EdgeInsets.only(top: 8),
-            child: Column(
-              children: [
-                AddressPicker(),
-                Expanded(
-                    child: ListView.builder(
-                        itemCount: restaurants.value.length,
-                        itemBuilder: (context, index) {
-                          return RestaurantItem(restaurants.value[index]);
-                        }))
-              ],
-            ))),
+    body: WillPopScope(
+        onWillPop: () async {
+          var result =
+              await pages[currentPageIndex.value].key.currentState.maybePop();
+          return !result;
+        },
+        child: SafeArea(
+          child: Stack(children: [
+            IndexedStack(index: currentPageIndex.value, children: [
+              Navigator(
+                key: foodPage.key,
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                  settings: settings,
+                  builder: (context) => Container(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Column(
+                        children: [
+                          AddressPicker(),
+                          Expanded(
+                              child: ListView.builder(
+                                  itemCount: restaurants.value.length,
+                                  itemBuilder: (context, index) {
+                                    return RestaurantItem(
+                                        restaurants.value[index]);
+                                  }))
+                        ],
+                      )),
+                ),
+              ),
+              OrdersPage(),
+            ]),
+            isBasketButtonVisible
+                ? Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Center(child: _BasketButton(basket.data)),
+                      Container(
+                        height: 8,
+                      )
+                    ],
+                  )
+                : Container(),
+          ]),
+        )),
+    bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          if (currentPageIndex.value == index) {
+            // Reselecting the page - reset the state
+          } else {
+            currentPageIndex.value = index;
+          }
+        },
+        currentIndex: currentPageIndex.value,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.restaurant), title: Text("Food")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), title: Text("Orders"))
+        ]),
   );
 }

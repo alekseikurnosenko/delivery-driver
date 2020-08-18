@@ -64,6 +64,7 @@ Widget _dishItem(BuildContext context, Dish dish, Restaurant restaurant) {
         showModalBottomSheet(
           context: context,
           isScrollControlled: true,
+          useRootNavigator: true,
           builder: (BuildContext context) {
             return DraggableScrollableSheet(
               expand: false,

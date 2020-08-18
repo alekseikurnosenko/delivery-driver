@@ -1,3 +1,4 @@
+import 'package:delivery_driver/customer/basketService.dart';
 import 'package:delivery_driver/main.dart';
 import 'package:delivery_driver/profile/courierRepository.dart';
 import 'package:dio/dio.dart';
@@ -11,6 +12,8 @@ class IocContainer {
   CourierRepository courierRepository;
 
   Openapi api;
+
+  BasketService basketService = BasketService();
 
   IocContainer._internal() {
     api = Openapi(interceptors: [

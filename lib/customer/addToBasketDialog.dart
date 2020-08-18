@@ -34,10 +34,9 @@ Widget addToBasketDialog(
     var input = AddItemToBasketInput((b) => b
       ..dishId = dish.id
       ..restaurantId = restaurant.id
+      ..forceNewBasket = true
       ..quantity = count.value);
-    var basket = await IocContainer().api.getBasketApi().addItemToBasket(input);
-
-    // TODO: update basket?
+    await IocContainer().basketService.addToBasket(input);
 
     Navigator.pop(context);
   };

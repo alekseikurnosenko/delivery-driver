@@ -22,18 +22,18 @@ class RestaurantRating extends StatelessWidget {
   Widget build(BuildContext _context) => restaurantRating(_context, rating);
 }
 
-class RestaurantItem extends StatelessWidget {
-  const RestaurantItem(this.restaurant, {Key key}) : super(key: key);
+class _BasketButton extends StatelessWidget {
+  const _BasketButton(this.basket, {Key key}) : super(key: key);
 
-  final Restaurant restaurant;
+  final BasketDTO basket;
 
   @override
-  Widget build(BuildContext _context) => restaurantItem(_context, restaurant);
+  Widget build(BuildContext _context) => _basketButton(_context, basket);
 }
 
 class CustomerHomePage extends HookWidget {
   const CustomerHomePage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext _context) => customerHomePage();
+  Widget build(BuildContext _context) => customerHomePage(_context);
 }
