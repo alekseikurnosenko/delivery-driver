@@ -1,13 +1,11 @@
 import 'package:delivery_driver/appTextStyle.dart';
-import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/customer/ordersPage.dart';
 import 'package:delivery_driver/customer/restaurantItem.dart';
-import 'package:delivery_driver/customer/restaurantPage.dart';
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/model/basket_dto.dart';
 import 'package:openapi/model/restaurant.dart';
 
@@ -90,7 +88,9 @@ Widget _basketButton(BuildContext context, BasketDTO basket) {
                       .copyWith(color: Colors.white),
                 )),
           ])),
-      onPressed: () {});
+      onPressed: () {
+        Navigator.of(context).pushNamed("/basket");
+      });
 }
 
 class HomePage {

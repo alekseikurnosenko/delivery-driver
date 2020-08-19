@@ -1,3 +1,4 @@
+import 'package:delivery_driver/customer/basketPage.dart';
 import 'package:delivery_driver/customer/homePage.dart';
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:delivery_driver/request/main.dart';
@@ -13,7 +14,6 @@ void main() {
 class MyApp extends StatelessWidget {
   static final String token =
       "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUkNNa0ZHTWpsR1FUZ3lPVU5CUkVFMU9EaEJNRGt3UlRaRVEwRkZPVU0xUkRVelF6aERRZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1kZWxpdmVyeS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWUwZjRjMmQwNDhmODAwZWE3MjlkYzJjIiwiYXVkIjoiaHR0cHM6Ly9kZWxpdmVyeS9hcGkiLCJpYXQiOjE1OTczNTM5MzgsImV4cCI6MTU5OTk0NTkzOCwiYXpwIjoiR1l1OHFydUpoTnpMTTFKZWlQaWNVWFpmSXljNjNlUXYiLCJndHkiOiJwYXNzd29yZCIsInBlcm1pc3Npb25zIjpbXX0.XrZeASB02-UzYPxBDKDVmcOg2ZJi7F9Bg5CCXCNPZbunKEqQZvOrYCaBen4ezN1XWkT-rkFl1pyqRHxUV6CCuW4tnXBc1arkwJ7Csoy_fJhQIGxhXnNqpQ7xzUazW5WLruRH315zs6xUts6qQrWkgQr5RdFWitLDx7PPnyMKu-FHuVA28LQ-PZdDUGGPGAZEa9NzriU0CvEWHae_xqhVoNL9v7fJmEDtLYljPKhWTmLwsr2kvDhUvQYrce5B8gVIe5ZD96aW9Vf2Ba2DQbt7i3OIf7MgZGDHpwbLj9lZyBg7MzoNWtluGXZReG9DUhzlax-VkgBX8CczqnZ37lgHQw";
-
   @override
   Widget build(BuildContext context) {
     // API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
@@ -53,7 +53,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => CustomerHomePage(),
-        "/request": (context) => RequestPage()
+        "/request": (context) => RequestPage(),
+        "/basket": (context) => BasketPage(),
       },
     );
   }
