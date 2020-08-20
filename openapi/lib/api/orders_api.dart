@@ -20,7 +20,7 @@ class OrdersApi {
         /// 
         Future<Response<Order>>order(String orderId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/orders/{orderId}".replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/orders/{orderId}".replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -67,7 +67,7 @@ class OrdersApi {
         /// 
         Future<Response<PageOrder>>orders2(Pageable pageable,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/orders";
+        String _path = "/orders";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});

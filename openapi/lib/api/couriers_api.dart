@@ -23,7 +23,7 @@ class CouriersApi {
         /// 
         Future<Response<DeliveryRequestDTO>>acceptDeliveryRequest(String courierId,String orderId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/requests/{orderId}/accept".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/couriers/{courierId}/requests/{orderId}/accept".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -70,7 +70,7 @@ class CouriersApi {
         /// 
         Future<Response<Order>>confirmDropoff(String courierId,String orderId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/orders/{orderId}/confirmDropoff".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/couriers/{courierId}/orders/{orderId}/confirmDropoff".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -117,7 +117,7 @@ class CouriersApi {
         /// 
         Future<Response<Order>>confirmOrderPickup(String courierId,String orderId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/orders/{orderId}/confirmPickup".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/couriers/{courierId}/orders/{orderId}/confirmPickup".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -164,7 +164,7 @@ class CouriersApi {
         /// 
         Future<Response<List<Courier>>>couriers({ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers";
+        String _path = "/couriers";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -212,7 +212,7 @@ class CouriersApi {
         /// 
         Future<Response<Courier>>createCourier(CreateCourierInput createCourierInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers";
+        String _path = "/couriers";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -260,9 +260,9 @@ class CouriersApi {
         /// 
         ///
         /// 
-        Future<Response<List<Order>>>orders(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
+        Future<Response<List<Order>>>orders1(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/orders".replaceAll("{" r'courierId' "}", courierId.toString());
+        String _path = "/couriers/{courierId}/orders".replaceAll("{" r'courierId' "}", courierId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -310,7 +310,7 @@ class CouriersApi {
         /// 
         Future<Response<Courier>>ownCourier({ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/me";
+        String _path = "/couriers/me";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -357,7 +357,7 @@ class CouriersApi {
         /// 
         Future<Response<List<DeliveryRequestDTO>>>pendingDeliveryRequests(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/requests".replaceAll("{" r'courierId' "}", courierId.toString());
+        String _path = "/couriers/{courierId}/requests".replaceAll("{" r'courierId' "}", courierId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -405,7 +405,7 @@ class CouriersApi {
         /// 
         Future<Response<DeliveryRequestDTO>>rejectDeliveryRequest(String courierId,String orderId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/requests/{orderId}/reject".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/couriers/{courierId}/requests/{orderId}/reject".replaceAll("{" r'courierId' "}", courierId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -452,7 +452,7 @@ class CouriersApi {
         /// 
         Future<Response<Courier>>startShift(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/startShift".replaceAll("{" r'courierId' "}", courierId.toString());
+        String _path = "/couriers/{courierId}/startShift".replaceAll("{" r'courierId' "}", courierId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -499,7 +499,7 @@ class CouriersApi {
         /// 
         Future<Response<CourierStatistics>>statistics({ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/statistics";
+        String _path = "/couriers/statistics";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -546,7 +546,7 @@ class CouriersApi {
         /// 
         Future<Response<Courier>>stopShift(String courierId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/stopShift".replaceAll("{" r'courierId' "}", courierId.toString());
+        String _path = "/couriers/{courierId}/stopShift".replaceAll("{" r'courierId' "}", courierId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -593,7 +593,7 @@ class CouriersApi {
         /// 
         Future<Response>updateLocation(String courierId,UpdateLocationInput updateLocationInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/couriers/{courierId}/location".replaceAll("{" r'courierId' "}", courierId.toString());
+        String _path = "/couriers/{courierId}/location".replaceAll("{" r'courierId' "}", courierId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});

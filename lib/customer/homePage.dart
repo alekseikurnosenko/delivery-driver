@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:openapi/model/basket_dto.dart';
+import 'package:openapi/model/basket.dart';
 import 'package:openapi/model/restaurant.dart';
 
 part 'homePage.g.dart';
@@ -44,7 +44,7 @@ Widget restaurantRating(BuildContext context, double rating) {
 }
 
 @swidget
-Widget _basketButton(BuildContext context, BasketDTO basket) {
+Widget _basketButton(BuildContext context, Basket basket) {
   return RawMaterialButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -71,7 +71,7 @@ Widget _basketButton(BuildContext context, BasketDTO basket) {
                       color: Colors.white),
                 ),
                 Container(height: 2),
-                Text("McSomething's",
+                Text(basket.restaurant.name,
                     style: AppTextStyle.sectionHeader(context)
                         .copyWith(fontSize: 12.0, color: Colors.white))
               ],
@@ -157,9 +157,8 @@ Widget customerHomePage(BuildContext context) {
                 ? Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Center(child: _BasketButton(basket.data)),
+                      _BasketButton(basket.data),
                       Container(
                         height: 8,
                       )

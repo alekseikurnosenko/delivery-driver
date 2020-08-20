@@ -9,8 +9,8 @@ part of serializers;
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AddItemToBasketInput.serializer)
       ..add(Address.serializer)
-      ..add(BasketDTO.serializer)
-      ..add(BasketItemDTO.serializer)
+      ..add(Basket.serializer)
+      ..add(BasketItem.serializer)
       ..add(Courier.serializer)
       ..add(CourierAdded.serializer)
       ..add(CourierLocationUpdated.serializer)
@@ -48,8 +48,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Sort.serializer)
       ..add(UpdateLocationInput.serializer)
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(BasketItemDTO)]),
-          () => new ListBuilder<BasketItemDTO>())
+          const FullType(BuiltList, const [const FullType(BasketItem)]),
+          () => new ListBuilder<BasketItem>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(DomainEvent)]),
           () => new ListBuilder<DomainEvent>())

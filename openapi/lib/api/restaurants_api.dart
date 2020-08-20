@@ -25,7 +25,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Dish>>createDish(String restaurantId,CreateDishInput createDishInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/dishes".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
+        String _path = "/restaurants/{restaurantId}/dishes".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -75,7 +75,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Restaurant>>createRestaurant(CreateRestaurantInput createRestaurantInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants";
+        String _path = "/restaurants";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -125,7 +125,7 @@ class RestaurantsApi {
         /// 
         Future<Response>deleteDish(String restaurantId,String dishId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/dishes/{dishId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'dishId' "}", dishId.toString());
+        String _path = "/restaurants/{restaurantId}/dishes/{dishId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'dishId' "}", dishId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -158,7 +158,7 @@ class RestaurantsApi {
         /// 
         Future<Response>deleteRestaurant(String restaurantId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
+        String _path = "/restaurants/{restaurantId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -191,7 +191,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Dish>>editDish(String restaurantId,String dishId,EditDishInput editDishInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/dishes/{dishId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'dishId' "}", dishId.toString());
+        String _path = "/restaurants/{restaurantId}/dishes/{dishId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'dishId' "}", dishId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -241,7 +241,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Restaurant>>editRestaurant(String restaurantId,EditRestaurantInput editRestaurantInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
+        String _path = "/restaurants/{restaurantId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -291,7 +291,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Order>>finishPreparingOrder(String restaurantId,String orderId,{ OrderStatus status,CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/orders/{orderId}/finishPreparing".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/restaurants/{restaurantId}/orders/{orderId}/finishPreparing".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -337,9 +337,9 @@ class RestaurantsApi {
         /// 
         ///
         /// 
-        Future<Response<List<Order>>>orders1(String restaurantId,{ OrderStatus status,CancelToken cancelToken, Map<String, String> headers,}) async {
+        Future<Response<List<Order>>>orders(String restaurantId,{ OrderStatus status,CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/orders".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
+        String _path = "/restaurants/{restaurantId}/orders".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -388,7 +388,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Restaurant>>ownRestaurant({ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/me";
+        String _path = "/restaurants/me";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -435,7 +435,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Restaurant>>restaurant(String restaurantId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
+        String _path = "/restaurants/{restaurantId}".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -482,7 +482,7 @@ class RestaurantsApi {
         /// 
         Future<Response<List<Dish>>>restaurantDishes(String restaurantId,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/dishes".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
+        String _path = "/restaurants/{restaurantId}/dishes".replaceAll("{" r'restaurantId' "}", restaurantId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -530,7 +530,7 @@ class RestaurantsApi {
         /// 
         Future<Response<List<Restaurant>>>restaurants({ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants";
+        String _path = "/restaurants";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -578,7 +578,7 @@ class RestaurantsApi {
         /// 
         Future<Response<Order>>startPreparingOrder(String restaurantId,String orderId,{ OrderStatus status,CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/restaurants/{restaurantId}/orders/{orderId}/startPreparing".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
+        String _path = "/restaurants/{restaurantId}/orders/{orderId}/startPreparing".replaceAll("{" r'restaurantId' "}", restaurantId.toString()).replaceAll("{" r'orderId' "}", orderId.toString());
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});

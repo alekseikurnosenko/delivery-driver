@@ -58,48 +58,48 @@ All URIs are relative to *http://enigmatic-garden-23553.herokuapp.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BasketApi* | [**addItemToBasket**](doc//BasketApi.md#additemtobasket) | **post** /api/basket/addItem | 
-*BasketApi* | [**basket**](doc//BasketApi.md#basket) | **get** /api/basket | 
-*BasketApi* | [**checkout**](doc//BasketApi.md#checkout) | **post** /api/basket/checkout | 
-*BasketApi* | [**removeItemFromBasket**](doc//BasketApi.md#removeitemfrombasket) | **post** /api/basket/removeItem | 
-*CouriersApi* | [**acceptDeliveryRequest**](doc//CouriersApi.md#acceptdeliveryrequest) | **post** /api/couriers/{courierId}/requests/{orderId}/accept | 
-*CouriersApi* | [**confirmDropoff**](doc//CouriersApi.md#confirmdropoff) | **post** /api/couriers/{courierId}/orders/{orderId}/confirmDropoff | 
-*CouriersApi* | [**confirmOrderPickup**](doc//CouriersApi.md#confirmorderpickup) | **post** /api/couriers/{courierId}/orders/{orderId}/confirmPickup | 
-*CouriersApi* | [**couriers**](doc//CouriersApi.md#couriers) | **get** /api/couriers | 
-*CouriersApi* | [**createCourier**](doc//CouriersApi.md#createcourier) | **post** /api/couriers | 
-*CouriersApi* | [**orders**](doc//CouriersApi.md#orders) | **get** /api/couriers/{courierId}/orders | 
-*CouriersApi* | [**ownCourier**](doc//CouriersApi.md#owncourier) | **get** /api/couriers/me | 
-*CouriersApi* | [**pendingDeliveryRequests**](doc//CouriersApi.md#pendingdeliveryrequests) | **get** /api/couriers/{courierId}/requests | 
-*CouriersApi* | [**rejectDeliveryRequest**](doc//CouriersApi.md#rejectdeliveryrequest) | **post** /api/couriers/{courierId}/requests/{orderId}/reject | 
-*CouriersApi* | [**startShift**](doc//CouriersApi.md#startshift) | **post** /api/couriers/{courierId}/startShift | 
-*CouriersApi* | [**statistics**](doc//CouriersApi.md#statistics) | **get** /api/couriers/statistics | 
-*CouriersApi* | [**stopShift**](doc//CouriersApi.md#stopshift) | **post** /api/couriers/{courierId}/stopShift | 
-*CouriersApi* | [**updateLocation**](doc//CouriersApi.md#updatelocation) | **post** /api/couriers/{courierId}/location | 
-*OrdersApi* | [**order**](doc//OrdersApi.md#order) | **get** /api/orders/{orderId} | 
-*OrdersApi* | [**orders2**](doc//OrdersApi.md#orders2) | **get** /api/orders | 
-*ProfileApi* | [**setAddress**](doc//ProfileApi.md#setaddress) | **post** /api/profile/address | 
-*ProfileApi* | [**setPaymentMethod**](doc//ProfileApi.md#setpaymentmethod) | **post** /api/profile/payment_method | 
-*RestaurantsApi* | [**createDish**](doc//RestaurantsApi.md#createdish) | **post** /api/restaurants/{restaurantId}/dishes | Create dish served by restaurant
-*RestaurantsApi* | [**createRestaurant**](doc//RestaurantsApi.md#createrestaurant) | **post** /api/restaurants | Create new restaurant
-*RestaurantsApi* | [**deleteDish**](doc//RestaurantsApi.md#deletedish) | **delete** /api/restaurants/{restaurantId}/dishes/{dishId} | 
-*RestaurantsApi* | [**deleteRestaurant**](doc//RestaurantsApi.md#deleterestaurant) | **delete** /api/restaurants/{restaurantId} | 
-*RestaurantsApi* | [**editDish**](doc//RestaurantsApi.md#editdish) | **put** /api/restaurants/{restaurantId}/dishes/{dishId} | 
-*RestaurantsApi* | [**editRestaurant**](doc//RestaurantsApi.md#editrestaurant) | **put** /api/restaurants/{restaurantId} | Edit restaurant info
-*RestaurantsApi* | [**finishPreparingOrder**](doc//RestaurantsApi.md#finishpreparingorder) | **post** /api/restaurants/{restaurantId}/orders/{orderId}/finishPreparing | 
-*RestaurantsApi* | [**orders1**](doc//RestaurantsApi.md#orders1) | **get** /api/restaurants/{restaurantId}/orders | 
-*RestaurantsApi* | [**ownRestaurant**](doc//RestaurantsApi.md#ownrestaurant) | **get** /api/restaurants/me | 
-*RestaurantsApi* | [**restaurant**](doc//RestaurantsApi.md#restaurant) | **get** /api/restaurants/{restaurantId} | Get restaurant info
-*RestaurantsApi* | [**restaurantDishes**](doc//RestaurantsApi.md#restaurantdishes) | **get** /api/restaurants/{restaurantId}/dishes | Get restaurant dishes
-*RestaurantsApi* | [**restaurants**](doc//RestaurantsApi.md#restaurants) | **get** /api/restaurants | Get list of restaurants
-*RestaurantsApi* | [**startPreparingOrder**](doc//RestaurantsApi.md#startpreparingorder) | **post** /api/restaurants/{restaurantId}/orders/{orderId}/startPreparing | 
+*BasketApi* | [**addItemToBasket**](doc//BasketApi.md#additemtobasket) | **post** /basket/addItem | 
+*BasketApi* | [**basket**](doc//BasketApi.md#basket) | **get** /basket | 
+*BasketApi* | [**checkout**](doc//BasketApi.md#checkout) | **post** /basket/checkout | 
+*BasketApi* | [**removeItemFromBasket**](doc//BasketApi.md#removeitemfrombasket) | **post** /basket/removeItem | 
+*CouriersApi* | [**acceptDeliveryRequest**](doc//CouriersApi.md#acceptdeliveryrequest) | **post** /couriers/{courierId}/requests/{orderId}/accept | 
+*CouriersApi* | [**confirmDropoff**](doc//CouriersApi.md#confirmdropoff) | **post** /couriers/{courierId}/orders/{orderId}/confirmDropoff | 
+*CouriersApi* | [**confirmOrderPickup**](doc//CouriersApi.md#confirmorderpickup) | **post** /couriers/{courierId}/orders/{orderId}/confirmPickup | 
+*CouriersApi* | [**couriers**](doc//CouriersApi.md#couriers) | **get** /couriers | 
+*CouriersApi* | [**createCourier**](doc//CouriersApi.md#createcourier) | **post** /couriers | 
+*CouriersApi* | [**orders1**](doc//CouriersApi.md#orders1) | **get** /couriers/{courierId}/orders | 
+*CouriersApi* | [**ownCourier**](doc//CouriersApi.md#owncourier) | **get** /couriers/me | 
+*CouriersApi* | [**pendingDeliveryRequests**](doc//CouriersApi.md#pendingdeliveryrequests) | **get** /couriers/{courierId}/requests | 
+*CouriersApi* | [**rejectDeliveryRequest**](doc//CouriersApi.md#rejectdeliveryrequest) | **post** /couriers/{courierId}/requests/{orderId}/reject | 
+*CouriersApi* | [**startShift**](doc//CouriersApi.md#startshift) | **post** /couriers/{courierId}/startShift | 
+*CouriersApi* | [**statistics**](doc//CouriersApi.md#statistics) | **get** /couriers/statistics | 
+*CouriersApi* | [**stopShift**](doc//CouriersApi.md#stopshift) | **post** /couriers/{courierId}/stopShift | 
+*CouriersApi* | [**updateLocation**](doc//CouriersApi.md#updatelocation) | **post** /couriers/{courierId}/location | 
+*OrdersApi* | [**order**](doc//OrdersApi.md#order) | **get** /orders/{orderId} | 
+*OrdersApi* | [**orders2**](doc//OrdersApi.md#orders2) | **get** /orders | 
+*ProfileApi* | [**setAddress**](doc//ProfileApi.md#setaddress) | **post** /profile/address | 
+*ProfileApi* | [**setPaymentMethod**](doc//ProfileApi.md#setpaymentmethod) | **post** /profile/payment_method | 
+*RestaurantsApi* | [**createDish**](doc//RestaurantsApi.md#createdish) | **post** /restaurants/{restaurantId}/dishes | Create dish served by restaurant
+*RestaurantsApi* | [**createRestaurant**](doc//RestaurantsApi.md#createrestaurant) | **post** /restaurants | Create new restaurant
+*RestaurantsApi* | [**deleteDish**](doc//RestaurantsApi.md#deletedish) | **delete** /restaurants/{restaurantId}/dishes/{dishId} | 
+*RestaurantsApi* | [**deleteRestaurant**](doc//RestaurantsApi.md#deleterestaurant) | **delete** /restaurants/{restaurantId} | 
+*RestaurantsApi* | [**editDish**](doc//RestaurantsApi.md#editdish) | **put** /restaurants/{restaurantId}/dishes/{dishId} | 
+*RestaurantsApi* | [**editRestaurant**](doc//RestaurantsApi.md#editrestaurant) | **put** /restaurants/{restaurantId} | Edit restaurant info
+*RestaurantsApi* | [**finishPreparingOrder**](doc//RestaurantsApi.md#finishpreparingorder) | **post** /restaurants/{restaurantId}/orders/{orderId}/finishPreparing | 
+*RestaurantsApi* | [**orders**](doc//RestaurantsApi.md#orders) | **get** /restaurants/{restaurantId}/orders | 
+*RestaurantsApi* | [**ownRestaurant**](doc//RestaurantsApi.md#ownrestaurant) | **get** /restaurants/me | 
+*RestaurantsApi* | [**restaurant**](doc//RestaurantsApi.md#restaurant) | **get** /restaurants/{restaurantId} | Get restaurant info
+*RestaurantsApi* | [**restaurantDishes**](doc//RestaurantsApi.md#restaurantdishes) | **get** /restaurants/{restaurantId}/dishes | Get restaurant dishes
+*RestaurantsApi* | [**restaurants**](doc//RestaurantsApi.md#restaurants) | **get** /restaurants | Get list of restaurants
+*RestaurantsApi* | [**startPreparingOrder**](doc//RestaurantsApi.md#startpreparingorder) | **post** /restaurants/{restaurantId}/orders/{orderId}/startPreparing | 
 
 
 ## Documentation For Models
 
  - [AddItemToBasketInput](doc//AddItemToBasketInput.md)
  - [Address](doc//Address.md)
- - [BasketDTO](doc//BasketDTO.md)
- - [BasketItemDTO](doc//BasketItemDTO.md)
+ - [Basket](doc//Basket.md)
+ - [BasketItem](doc//BasketItem.md)
  - [Courier](doc//Courier.md)
  - [CourierAdded](doc//CourierAdded.md)
  - [CourierLocationUpdated](doc//CourierLocationUpdated.md)

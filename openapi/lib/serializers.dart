@@ -8,8 +8,8 @@ import 'package:built_value/standard_json_plugin.dart';
 
 import 'package:openapi/model/add_item_to_basket_input.dart';
 import 'package:openapi/model/address.dart';
-import 'package:openapi/model/basket_dto.dart';
-import 'package:openapi/model/basket_item_dto.dart';
+import 'package:openapi/model/basket.dart';
+import 'package:openapi/model/basket_item.dart';
 import 'package:openapi/model/courier.dart';
 import 'package:openapi/model/courier_added.dart';
 import 'package:openapi/model/courier_location_updated.dart';
@@ -53,8 +53,8 @@ part 'serializers.g.dart';
 @SerializersFor(const [
 AddItemToBasketInput,
 Address,
-BasketDTO,
-BasketItemDTO,
+Basket,
+BasketItem,
 Courier,
 CourierAdded,
 CourierLocationUpdated,
@@ -103,11 +103,11 @@ const FullType(BuiltList, const [const FullType(AddItemToBasketInput)]),
 const FullType(BuiltList, const [const FullType(Address)]),
 () => new ListBuilder<Address>())
 ..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(BasketDTO)]),
-() => new ListBuilder<BasketDTO>())
+const FullType(BuiltList, const [const FullType(Basket)]),
+() => new ListBuilder<Basket>())
 ..addBuilderFactory(
-const FullType(BuiltList, const [const FullType(BasketItemDTO)]),
-() => new ListBuilder<BasketItemDTO>())
+const FullType(BuiltList, const [const FullType(BasketItem)]),
+() => new ListBuilder<BasketItem>())
 ..addBuilderFactory(
 const FullType(BuiltList, const [const FullType(Courier)]),
 () => new ListBuilder<Courier>())

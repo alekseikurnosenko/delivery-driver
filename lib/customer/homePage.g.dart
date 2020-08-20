@@ -25,7 +25,7 @@ class RestaurantRating extends StatelessWidget {
 class _BasketButton extends StatelessWidget {
   const _BasketButton(this.basket, {Key key}) : super(key: key);
 
-  final BasketDTO basket;
+  final Basket basket;
 
   @override
   Widget build(BuildContext _context) => _basketButton(_context, basket);

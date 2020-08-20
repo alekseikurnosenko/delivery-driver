@@ -20,7 +20,7 @@ class ProfileApi {
         /// 
         Future<Response<Profile>>setAddress(Address address,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/profile/address";
+        String _path = "/profile/address";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});
@@ -70,7 +70,7 @@ class ProfileApi {
         /// 
         Future<Response<Profile>>setPaymentMethod(SetPaymentMethodInput setPaymentMethodInput,{ CancelToken cancelToken, Map<String, String> headers,}) async {
 
-        String _path = "/api/profile/payment_method";
+        String _path = "/profile/payment_method";
 
         Map<String, dynamic> queryParams = {};
         Map<String, String> headerParams = Map.from(headers ?? {});

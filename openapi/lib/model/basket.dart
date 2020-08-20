@@ -1,17 +1,22 @@
+            import 'package:openapi/model/basket_item.dart';
             import 'package:built_collection/built_collection.dart';
-            import 'package:openapi/model/basket_item_dto.dart';
+            import 'package:openapi/model/restaurant.dart';
             import 'package:openapi/model/money_view.dart';
         import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'basket_dto.g.dart';
+part 'basket.g.dart';
 
-abstract class BasketDTO implements Built<BasketDTO, BasketDTOBuilder> {
+abstract class Basket implements Built<Basket, BasketBuilder> {
 
     
         @nullable
+    @BuiltValueField(wireName: r'restaurant')
+    Restaurant get restaurant;
+    
+        @nullable
     @BuiltValueField(wireName: r'items')
-    BuiltList<BasketItemDTO> get items;
+    BuiltList<BasketItem> get items;
     
         @nullable
     @BuiltValueField(wireName: r'totalAmount')
@@ -26,10 +31,10 @@ abstract class BasketDTO implements Built<BasketDTO, BasketDTOBuilder> {
     bool get aboveMinimumOrder;
 
     // Boilerplate code needed to wire-up generated code
-    BasketDTO._();
+    Basket._();
 
-    factory BasketDTO([updates(BasketDTOBuilder b)]) = _$BasketDTO;
-    static Serializer<BasketDTO> get serializer => _$basketDTOSerializer;
+    factory Basket([updates(BasketBuilder b)]) = _$Basket;
+    static Serializer<Basket> get serializer => _$basketSerializer;
 
 }
 

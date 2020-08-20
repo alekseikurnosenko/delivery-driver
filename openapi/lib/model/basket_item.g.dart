@@ -1,22 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'basket_item_dto.dart';
+part of 'basket_item.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<BasketItemDTO> _$basketItemDTOSerializer =
-    new _$BasketItemDTOSerializer();
+Serializer<BasketItem> _$basketItemSerializer = new _$BasketItemSerializer();
 
-class _$BasketItemDTOSerializer implements StructuredSerializer<BasketItemDTO> {
+class _$BasketItemSerializer implements StructuredSerializer<BasketItem> {
   @override
-  final Iterable<Type> types = const [BasketItemDTO, _$BasketItemDTO];
+  final Iterable<Type> types = const [BasketItem, _$BasketItem];
   @override
-  final String wireName = 'BasketItemDTO';
+  final String wireName = 'BasketItem';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, BasketItemDTO object,
+  Iterable<Object> serialize(Serializers serializers, BasketItem object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     if (object.dish != null) {
@@ -31,14 +30,19 @@ class _$BasketItemDTOSerializer implements StructuredSerializer<BasketItemDTO> {
         ..add(serializers.serialize(object.quantity,
             specifiedType: const FullType(int)));
     }
+    if (object.totalPrice != null) {
+      result
+        ..add('totalPrice')
+        ..add(serializers.serialize(object.totalPrice,
+            specifiedType: const FullType(MoneyView)));
+    }
     return result;
   }
 
   @override
-  BasketItemDTO deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+  BasketItem deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new BasketItemDTOBuilder();
+    final result = new BasketItemBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -54,6 +58,10 @@ class _$BasketItemDTOSerializer implements StructuredSerializer<BasketItemDTO> {
           result.quantity = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'totalPrice':
+          result.totalPrice.replace(serializers.deserialize(value,
+              specifiedType: const FullType(MoneyView)) as MoneyView);
+          break;
       }
     }
 
@@ -61,49 +69,53 @@ class _$BasketItemDTOSerializer implements StructuredSerializer<BasketItemDTO> {
   }
 }
 
-class _$BasketItemDTO extends BasketItemDTO {
+class _$BasketItem extends BasketItem {
   @override
   final Dish dish;
   @override
   final int quantity;
+  @override
+  final MoneyView totalPrice;
 
-  factory _$BasketItemDTO([void Function(BasketItemDTOBuilder) updates]) =>
-      (new BasketItemDTOBuilder()..update(updates)).build();
+  factory _$BasketItem([void Function(BasketItemBuilder) updates]) =>
+      (new BasketItemBuilder()..update(updates)).build();
 
-  _$BasketItemDTO._({this.dish, this.quantity}) : super._();
+  _$BasketItem._({this.dish, this.quantity, this.totalPrice}) : super._();
 
   @override
-  BasketItemDTO rebuild(void Function(BasketItemDTOBuilder) updates) =>
+  BasketItem rebuild(void Function(BasketItemBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BasketItemDTOBuilder toBuilder() => new BasketItemDTOBuilder()..replace(this);
+  BasketItemBuilder toBuilder() => new BasketItemBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BasketItemDTO &&
+    return other is BasketItem &&
         dish == other.dish &&
-        quantity == other.quantity;
+        quantity == other.quantity &&
+        totalPrice == other.totalPrice;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, dish.hashCode), quantity.hashCode));
+    return $jf($jc(
+        $jc($jc(0, dish.hashCode), quantity.hashCode), totalPrice.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('BasketItemDTO')
+    return (newBuiltValueToStringHelper('BasketItem')
           ..add('dish', dish)
-          ..add('quantity', quantity))
+          ..add('quantity', quantity)
+          ..add('totalPrice', totalPrice))
         .toString();
   }
 }
 
-class BasketItemDTOBuilder
-    implements Builder<BasketItemDTO, BasketItemDTOBuilder> {
-  _$BasketItemDTO _$v;
+class BasketItemBuilder implements Builder<BasketItem, BasketItemBuilder> {
+  _$BasketItem _$v;
 
   DishBuilder _dish;
   DishBuilder get dish => _$this._dish ??= new DishBuilder();
@@ -113,44 +125,57 @@ class BasketItemDTOBuilder
   int get quantity => _$this._quantity;
   set quantity(int quantity) => _$this._quantity = quantity;
 
-  BasketItemDTOBuilder();
+  MoneyViewBuilder _totalPrice;
+  MoneyViewBuilder get totalPrice =>
+      _$this._totalPrice ??= new MoneyViewBuilder();
+  set totalPrice(MoneyViewBuilder totalPrice) =>
+      _$this._totalPrice = totalPrice;
 
-  BasketItemDTOBuilder get _$this {
+  BasketItemBuilder();
+
+  BasketItemBuilder get _$this {
     if (_$v != null) {
       _dish = _$v.dish?.toBuilder();
       _quantity = _$v.quantity;
+      _totalPrice = _$v.totalPrice?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(BasketItemDTO other) {
+  void replace(BasketItem other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$BasketItemDTO;
+    _$v = other as _$BasketItem;
   }
 
   @override
-  void update(void Function(BasketItemDTOBuilder) updates) {
+  void update(void Function(BasketItemBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$BasketItemDTO build() {
-    _$BasketItemDTO _$result;
+  _$BasketItem build() {
+    _$BasketItem _$result;
     try {
       _$result = _$v ??
-          new _$BasketItemDTO._(dish: _dish?.build(), quantity: quantity);
+          new _$BasketItem._(
+              dish: _dish?.build(),
+              quantity: quantity,
+              totalPrice: _totalPrice?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'dish';
         _dish?.build();
+
+        _$failedField = 'totalPrice';
+        _totalPrice?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'BasketItemDTO', _$failedField, e.toString());
+            'BasketItem', _$failedField, e.toString());
       }
       rethrow;
     }

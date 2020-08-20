@@ -1,16 +1,18 @@
 import 'package:delivery_driver/appTextStyle.dart';
+import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:openapi/model/basket_item_dto.dart';
+import 'package:openapi/model/basket.dart';
+import 'package:openapi/model/basket_item.dart';
 import 'package:openapi/model/remove_from_basket_input.dart';
 
 part 'basketPage.g.dart';
 
 @swidget
 Widget _basketItem(
-    BuildContext context, BasketItemDTO basketItem, Function onDeleteClick) {
+    BuildContext context, BasketItem basketItem, Function onDeleteClick) {
   return Container(
       padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
       child: Row(
@@ -31,8 +33,7 @@ Widget _basketItem(
               Text(basketItem.dish.name, style: AppTextStyle.copy(context))
             ],
           )),
-          Text(
-              "${basketItem.dish.price.currencyCode} ${basketItem.dish.price.amount * basketItem.quantity}",
+          Text(basketItem.totalPrice.formatted,
               style: AppTextStyle.sectionHeader(context)),
           Container(
             width: 0,
@@ -46,16 +47,40 @@ Widget _basketItem(
       ));
 }
 
+@swidget
+Widget _continueButton(BuildContext context, Basket basket) =>
+    RawMaterialButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+        fillColor: ButtonTheme.of(context).colorScheme.primary,
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              Expanded(child: Container()),
+              Expanded(
+                  child: Text("Continue",
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.button(context))),
+              Expanded(
+                  child: Text(basket.totalAmount.formatted,
+                      textAlign: TextAlign.end,
+                      style: AppTextStyle.button(context))),
+            ])),
+        onPressed: () {
+          Navigator.of(context).pushNamed("/checkout");
+        });
+
 @hwidget
 Widget basketPage(BuildContext context) {
   var basketService = IocContainer().basketService;
   var basket = useStream(useMemoized(() => basketService.basket));
 
-  var onDishDeleteClick = (BasketItemDTO basketItem) {
+  var onDishDeleteClick = (BasketItem basketItem) {
     var input = RemoveFromBasketInput((b) => b
       ..dishId = basketItem.dish.id
       ..quantity = basketItem.quantity
-      ..restaurantId = 'TODO');
+      ..restaurantId = basket.data.restaurant.id);
 
     // TODO: loading state?
     basketService.removeFromBasket(input);
@@ -64,38 +89,50 @@ Widget basketPage(BuildContext context) {
     Navigator.of(context).pop();
   };
 
-  var list = ListView.separated(
-      separatorBuilder: (context, index) => Divider(
-            height: 1,
-            indent: 48,
-          ),
-      itemCount: basket.data.items.length,
-      itemBuilder: (context, index) => _BasketItem(basket.data.items[index],
-          () => onDishDeleteClick(basket.data.items[index])));
+  if (!basket.hasData) {
+    // TODO: loading
+    return Container();
+  }
+
+  var list = basket.data.items
+      .expand((item) => [
+            _BasketItem(item, () => onDishDeleteClick(item)),
+            Divider(
+              height: 1,
+              indent: 48,
+            ),
+          ])
+      .toList();
+  list.removeLast();
 
   return SafeArea(
       child: Scaffold(
           body: Column(children: [
-    Container(
-        margin: EdgeInsets.only(top: 0),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Expanded(
-              flex: 1,
-              child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                      padding: EdgeInsets.all(0),
-                      icon: Icon(Icons.close),
-                      onPressed: onCloseClick))),
-          Expanded(
-            flex: 1,
-            child: Container(
-                child: Center(
-                    child: Text("McSomething's",
-                        style: AppTextStyle.sectionHeader(context)))),
-          ),
-          Expanded(flex: 1, child: Container()),
-        ])),
-    Expanded(child: list),
+    // AppBar
+    Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      Expanded(
+          child: Container(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                  padding: EdgeInsets.all(0),
+                  icon: Icon(Icons.close),
+                  onPressed: onCloseClick))),
+      Expanded(
+        child: Container(
+            child: Center(
+                child: Text(basket.data.restaurant.name,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyle.sectionHeader(context)))),
+      ),
+      Expanded(child: Container())
+    ]),
+    Expanded(
+        child: SingleChildScrollView(
+      child: Column(children: [Container(child: Column(children: list))]),
+    )),
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+      child: _ContinueButton(basket.data),
+    )
   ])));
 }

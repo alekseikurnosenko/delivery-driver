@@ -1,29 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'basket_dto.dart';
+part of 'basket.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<BasketDTO> _$basketDTOSerializer = new _$BasketDTOSerializer();
+Serializer<Basket> _$basketSerializer = new _$BasketSerializer();
 
-class _$BasketDTOSerializer implements StructuredSerializer<BasketDTO> {
+class _$BasketSerializer implements StructuredSerializer<Basket> {
   @override
-  final Iterable<Type> types = const [BasketDTO, _$BasketDTO];
+  final Iterable<Type> types = const [Basket, _$Basket];
   @override
-  final String wireName = 'BasketDTO';
+  final String wireName = 'Basket';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, BasketDTO object,
+  Iterable<Object> serialize(Serializers serializers, Basket object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
+    if (object.restaurant != null) {
+      result
+        ..add('restaurant')
+        ..add(serializers.serialize(object.restaurant,
+            specifiedType: const FullType(Restaurant)));
+    }
     if (object.items != null) {
       result
         ..add('items')
         ..add(serializers.serialize(object.items,
-            specifiedType: const FullType(
-                BuiltList, const [const FullType(BasketItemDTO)])));
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(BasketItem)])));
     }
     if (object.totalAmount != null) {
       result
@@ -47,9 +53,9 @@ class _$BasketDTOSerializer implements StructuredSerializer<BasketDTO> {
   }
 
   @override
-  BasketDTO deserialize(Serializers serializers, Iterable<Object> serialized,
+  Basket deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new BasketDTOBuilder();
+    final result = new BasketBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -57,10 +63,14 @@ class _$BasketDTOSerializer implements StructuredSerializer<BasketDTO> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'restaurant':
+          result.restaurant.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Restaurant)) as Restaurant);
+          break;
         case 'items':
           result.items.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(BasketItemDTO)]))
+                      BuiltList, const [const FullType(BasketItem)]))
               as BuiltList<Object>);
           break;
         case 'totalAmount':
@@ -82,9 +92,11 @@ class _$BasketDTOSerializer implements StructuredSerializer<BasketDTO> {
   }
 }
 
-class _$BasketDTO extends BasketDTO {
+class _$Basket extends Basket {
   @override
-  final BuiltList<BasketItemDTO> items;
+  final Restaurant restaurant;
+  @override
+  final BuiltList<BasketItem> items;
   @override
   final MoneyView totalAmount;
   @override
@@ -92,27 +104,29 @@ class _$BasketDTO extends BasketDTO {
   @override
   final bool aboveMinimumOrder;
 
-  factory _$BasketDTO([void Function(BasketDTOBuilder) updates]) =>
-      (new BasketDTOBuilder()..update(updates)).build();
+  factory _$Basket([void Function(BasketBuilder) updates]) =>
+      (new BasketBuilder()..update(updates)).build();
 
-  _$BasketDTO._(
-      {this.items,
+  _$Basket._(
+      {this.restaurant,
+      this.items,
       this.totalAmount,
       this.isAboveMinimumOrder,
       this.aboveMinimumOrder})
       : super._();
 
   @override
-  BasketDTO rebuild(void Function(BasketDTOBuilder) updates) =>
+  Basket rebuild(void Function(BasketBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BasketDTOBuilder toBuilder() => new BasketDTOBuilder()..replace(this);
+  BasketBuilder toBuilder() => new BasketBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BasketDTO &&
+    return other is Basket &&
+        restaurant == other.restaurant &&
         items == other.items &&
         totalAmount == other.totalAmount &&
         isAboveMinimumOrder == other.isAboveMinimumOrder &&
@@ -122,14 +136,17 @@ class _$BasketDTO extends BasketDTO {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, items.hashCode), totalAmount.hashCode),
+        $jc(
+            $jc($jc($jc(0, restaurant.hashCode), items.hashCode),
+                totalAmount.hashCode),
             isAboveMinimumOrder.hashCode),
         aboveMinimumOrder.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('BasketDTO')
+    return (newBuiltValueToStringHelper('Basket')
+          ..add('restaurant', restaurant)
           ..add('items', items)
           ..add('totalAmount', totalAmount)
           ..add('isAboveMinimumOrder', isAboveMinimumOrder)
@@ -138,13 +155,19 @@ class _$BasketDTO extends BasketDTO {
   }
 }
 
-class BasketDTOBuilder implements Builder<BasketDTO, BasketDTOBuilder> {
-  _$BasketDTO _$v;
+class BasketBuilder implements Builder<Basket, BasketBuilder> {
+  _$Basket _$v;
 
-  ListBuilder<BasketItemDTO> _items;
-  ListBuilder<BasketItemDTO> get items =>
-      _$this._items ??= new ListBuilder<BasketItemDTO>();
-  set items(ListBuilder<BasketItemDTO> items) => _$this._items = items;
+  RestaurantBuilder _restaurant;
+  RestaurantBuilder get restaurant =>
+      _$this._restaurant ??= new RestaurantBuilder();
+  set restaurant(RestaurantBuilder restaurant) =>
+      _$this._restaurant = restaurant;
+
+  ListBuilder<BasketItem> _items;
+  ListBuilder<BasketItem> get items =>
+      _$this._items ??= new ListBuilder<BasketItem>();
+  set items(ListBuilder<BasketItem> items) => _$this._items = items;
 
   MoneyViewBuilder _totalAmount;
   MoneyViewBuilder get totalAmount =>
@@ -162,10 +185,11 @@ class BasketDTOBuilder implements Builder<BasketDTO, BasketDTOBuilder> {
   set aboveMinimumOrder(bool aboveMinimumOrder) =>
       _$this._aboveMinimumOrder = aboveMinimumOrder;
 
-  BasketDTOBuilder();
+  BasketBuilder();
 
-  BasketDTOBuilder get _$this {
+  BasketBuilder get _$this {
     if (_$v != null) {
+      _restaurant = _$v.restaurant?.toBuilder();
       _items = _$v.items?.toBuilder();
       _totalAmount = _$v.totalAmount?.toBuilder();
       _isAboveMinimumOrder = _$v.isAboveMinimumOrder;
@@ -176,24 +200,25 @@ class BasketDTOBuilder implements Builder<BasketDTO, BasketDTOBuilder> {
   }
 
   @override
-  void replace(BasketDTO other) {
+  void replace(Basket other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$BasketDTO;
+    _$v = other as _$Basket;
   }
 
   @override
-  void update(void Function(BasketDTOBuilder) updates) {
+  void update(void Function(BasketBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$BasketDTO build() {
-    _$BasketDTO _$result;
+  _$Basket build() {
+    _$Basket _$result;
     try {
       _$result = _$v ??
-          new _$BasketDTO._(
+          new _$Basket._(
+              restaurant: _restaurant?.build(),
               items: _items?.build(),
               totalAmount: _totalAmount?.build(),
               isAboveMinimumOrder: isAboveMinimumOrder,
@@ -201,13 +226,15 @@ class BasketDTOBuilder implements Builder<BasketDTO, BasketDTOBuilder> {
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'restaurant';
+        _restaurant?.build();
         _$failedField = 'items';
         _items?.build();
         _$failedField = 'totalAmount';
         _totalAmount?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'BasketDTO', _$failedField, e.toString());
+            'Basket', _$failedField, e.toString());
       }
       rethrow;
     }
