@@ -1,11 +1,9 @@
 import 'package:delivery_driver/customer/basketPage.dart';
+import 'package:delivery_driver/customer/checkoutPage.dart';
 import 'package:delivery_driver/customer/homePage.dart';
-import 'package:delivery_driver/iocContainer.dart';
 import 'package:delivery_driver/request/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
-import 'home/homePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -55,6 +53,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => CustomerHomePage(),
         "/request": (context) => RequestPage(),
         "/basket": (context) => BasketPage(),
+        "/checkout": (context) => CheckoutPage(),
       },
     );
   }

@@ -151,7 +151,10 @@ Widget customerHomePage(BuildContext context) {
                       )),
                 ),
               ),
-              OrdersPage(),
+              Navigator(
+                  key: ordersPage.key,
+                  onGenerateRoute: (settings) => MaterialPageRoute(
+                      settings: settings, builder: (context) => OrdersPage()))
             ]),
             isBasketButtonVisible
                 ? Column(
@@ -171,6 +174,8 @@ Widget customerHomePage(BuildContext context) {
         onTap: (index) {
           if (currentPageIndex.value == index) {
             // Reselecting the page - reset the state
+            var currentPage = pages[index];
+            currentPage.key.currentState.popUntil((route) => route.isFirst);
           } else {
             currentPageIndex.value = index;
           }

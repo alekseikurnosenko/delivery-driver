@@ -1,9 +1,8 @@
 import 'package:delivery_driver/appTextStyle.dart';
-import 'package:delivery_driver/components/actionButton.dart';
 import 'package:delivery_driver/iocContainer.dart';
 import 'package:flutter/material.dart';
-import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:openapi/model/basket.dart';
 import 'package:openapi/model/basket_item.dart';
 import 'package:openapi/model/remove_from_basket_input.dart';
@@ -94,6 +93,24 @@ Widget basketPage(BuildContext context) {
     return Container();
   }
 
+  var topBar = Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+    Expanded(
+        child: Container(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.close),
+                onPressed: onCloseClick))),
+    Expanded(
+      child: Container(
+          child: Center(
+              child: Text(basket.data.restaurant.name,
+                  textAlign: TextAlign.center,
+                  style: AppTextStyle.sectionHeader(context)))),
+    ),
+    Expanded(child: Container())
+  ]);
+
   var list = basket.data.items
       .expand((item) => [
             _BasketItem(item, () => onDishDeleteClick(item)),
@@ -108,24 +125,7 @@ Widget basketPage(BuildContext context) {
   return SafeArea(
       child: Scaffold(
           body: Column(children: [
-    // AppBar
-    Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Expanded(
-          child: Container(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                  padding: EdgeInsets.all(0),
-                  icon: Icon(Icons.close),
-                  onPressed: onCloseClick))),
-      Expanded(
-        child: Container(
-            child: Center(
-                child: Text(basket.data.restaurant.name,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyle.sectionHeader(context)))),
-      ),
-      Expanded(child: Container())
-    ]),
+    topBar,
     Expanded(
         child: SingleChildScrollView(
       child: Column(children: [Container(child: Column(children: list))]),
