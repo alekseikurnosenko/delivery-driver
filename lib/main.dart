@@ -1,6 +1,4 @@
-import 'package:delivery_driver/customer/basketPage.dart';
-import 'package:delivery_driver/customer/checkoutPage.dart';
-import 'package:delivery_driver/customer/homePage.dart';
+import 'package:delivery_driver/home/homePage.dart';
 import 'package:delivery_driver/request/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static final String token =
-      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUkNNa0ZHTWpsR1FUZ3lPVU5CUkVFMU9EaEJNRGt3UlRaRVEwRkZPVU0xUkRVelF6aERRZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1kZWxpdmVyeS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWUwZjRjMmQwNDhmODAwZWE3MjlkYzJjIiwiYXVkIjoiaHR0cHM6Ly9kZWxpdmVyeS9hcGkiLCJpYXQiOjE1OTczNTM5MzgsImV4cCI6MTU5OTk0NTkzOCwiYXpwIjoiR1l1OHFydUpoTnpMTTFKZWlQaWNVWFpmSXljNjNlUXYiLCJndHkiOiJwYXNzd29yZCIsInBlcm1pc3Npb25zIjpbXX0.XrZeASB02-UzYPxBDKDVmcOg2ZJi7F9Bg5CCXCNPZbunKEqQZvOrYCaBen4ezN1XWkT-rkFl1pyqRHxUV6CCuW4tnXBc1arkwJ7Csoy_fJhQIGxhXnNqpQ7xzUazW5WLruRH315zs6xUts6qQrWkgQr5RdFWitLDx7PPnyMKu-FHuVA28LQ-PZdDUGGPGAZEa9NzriU0CvEWHae_xqhVoNL9v7fJmEDtLYljPKhWTmLwsr2kvDhUvQYrce5B8gVIe5ZD96aW9Vf2Ba2DQbt7i3OIf7MgZGDHpwbLj9lZyBg7MzoNWtluGXZReG9DUhzlax-VkgBX8CczqnZ37lgHQw";
+      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUkNNa0ZHTWpsR1FUZ3lPVU5CUkVFMU9EaEJNRGt3UlRaRVEwRkZPVU0xUkRVelF6aERRZyJ9.eyJpc3MiOiJodHRwczovL2Rldi1kZWxpdmVyeS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWUwZjQxYmIwNDhmODAwZWE3MjlkYjQzIiwiYXVkIjoiaHR0cHM6Ly9kZWxpdmVyeS9hcGkiLCJpYXQiOjE1OTczNTM5MzgsImV4cCI6MTU5OTk0NTkzOCwiYXpwIjoiR1l1OHFydUpoTnpMTTFKZWlQaWNVWFpmSXljNjNlUXYiLCJndHkiOiJwYXNzd29yZCIsInBlcm1pc3Npb25zIjpbXX0.ktzslmqoRIRGfj8Se5t8cUUfZkRj6iMZ12iOgpTM4Uy4q98G0LDDG4rr43IH3JGiEyrD5gsmxjDdE7g4gS-xXvOid_5l658ngoGo062v5sZeJWblp7XI_AOCMk7i_OUUuo7eANRmtToriRZ96yLOjJChzEd2OwGgTPkQ2XNN-P9NbIOId2ERcY1NGkndNiVlVp5aQiRaeVymjDX-OoUFhJip9Q_zMeBA7akJ0r-Wolg-7g_ZmCZgvnAYpKIRgoibqY-mXAz5Pqz_NS9z3r_YV2czEL4IE8FCRY_68kLd7gWLpHp9A3dX6T4PnXjH-EFtW3xlU1g1Hd1YPwajhjiLsg";
   @override
   Widget build(BuildContext context) {
     // API.defaultApiClient.addDefaultHeader("Authorization", "Bearer $token");
@@ -50,10 +48,8 @@ class MyApp extends StatelessWidget {
           buttonTheme: ButtonThemeData(height: 36)),
       initialRoute: "/",
       routes: {
-        "/": (context) => CustomerHomePage(),
+        "/": (context) => HomePage(),
         "/request": (context) => RequestPage(),
-        "/basket": (context) => BasketPage(),
-        "/checkout": (context) => CheckoutPage(),
       },
     );
   }
